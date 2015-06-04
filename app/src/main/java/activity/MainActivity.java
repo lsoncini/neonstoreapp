@@ -65,6 +65,11 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
             return true;
         }
 
+        if(id == R.id.action_cart){
+            changeFragment(new CartFragment(),getString(R.string.title_cart));
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -102,14 +107,19 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         }
 
         if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_body, fragment);
-            fragmentTransaction.commit();
-
-            // set the toolbar title
-            getSupportActionBar().setTitle(title);
+            changeFragment(fragment, title);
         }
+    }
+
+    void changeFragment(Fragment fragment, String title){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container_body, fragment);
+        fragmentTransaction.commit();
+
+        // set the toolbar title
+        getSupportActionBar().setTitle(title);
+
     }
 
 }
