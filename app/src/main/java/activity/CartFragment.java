@@ -39,4 +39,8 @@ public class CartFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
+
+    public static String getCounter() {
+        return "7";
+    }
 }

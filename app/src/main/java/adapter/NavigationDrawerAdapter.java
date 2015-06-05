@@ -2,6 +2,7 @@ package adapter;
 
 import android.content.Context;
 import android.media.Image;
+import android.opengl.Visibility;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,12 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         NavDrawerItem current = data.get(position);
         holder.title.setText(current.getTitle());
         holder.icon.setImageResource(current.getIcon());
+        if(current.getHasCounter()){
+            holder.counter.setText(current.getCounter());
+        }else{
+            // hide the counter view
+            holder.counter.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -52,11 +59,13 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         ImageView icon;
+        TextView counter;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
             icon = (ImageView) itemView.findViewById(R.id.icon);
+            counter = (TextView) itemView.findViewById(R.id.counter);
         }
     }
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="activity.FavouritesFragment">
+    tools:context="activity.FavoritesFragment">
 
 
     <TextView
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textSize="45dp"
-        android:text="@string/title_favourites"
+        android:text="@string/title_favorites"
         android:textStyle="bold"/>
 
     <TextView

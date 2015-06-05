@@ -53,8 +53,23 @@ public class FragmentDrawer extends Fragment {
             NavDrawerItem navItem = new NavDrawerItem();
             navItem.setTitle(titles[i]);
             navItem.setIcon(icons.getResourceId(i,-1));
+
+            if(titles[i].equals("Shopping Cart")){
+                navItem.setCounter(CartFragment.getCounter());
+                navItem.setHasCounter(true);
+            }else if(titles[i].equals("Favorites")){
+                navItem.setCounter(FavoritesFragment.getCounter());
+                navItem.setHasCounter(true);
+            } else{
+                navItem.setHasCounter(false);
+                navItem.setCounter("0");
+            }
             data.add(navItem);
         }
+
+        // Recycle the typed array
+        icons.recycle();
+
         return data;
     }
 
@@ -67,6 +82,8 @@ public class FragmentDrawer extends Fragment {
 
         //drawer icons
         icons = getActivity().getResources().obtainTypedArray(R.array.nav_drawer_icons);
+
+
     }
 
     @Override

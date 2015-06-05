@@ -8,7 +8,7 @@
     <string name="nav_item_home">Home</string>
     <string name="nav_item_categories">Categories</string>
     <string name="nav_item_cart">Shopping Cart</string>
-    <string name="nav_item_favourites">Favourites</string>
+    <string name="nav_item_favorites">Favorites</string>
     <string name="nav_item_help">Help</string>
 
     <!-- navigation drawer item labels  -->
@@ -16,11 +16,11 @@
         <item>@string/nav_item_home</item>
         <item>@string/nav_item_categories</item>
         <item>@string/nav_item_cart</item>
-        <item>@string/nav_item_favourites</item>
+        <item>@string/nav_item_favorites</item>
         <item>@string/nav_item_help</item>
     </string-array>
 
-    <string name="title_favourites">Favourites</string>
+    <string name="title_favorites">Favorites</string>
     <string name="title_cart">Shopping Cart</string>
     <string name="title_help">Help</string>
     <string name="title_categories">Categories</string>
@@ -32,7 +32,7 @@
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_categories</item>
         <item>@drawable/ic_cart</item>
-        <item>@drawable/ic_favourites</item>
+        <item>@drawable/ic_favorites</item>
         <item>@drawable/ic_help</item>
     </array>
 </resources>

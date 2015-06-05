@@ -12,8 +12,8 @@ import com.neon.neonstore.R;
 /**
  * Created by Lucas on 04/06/2015.
  */
-public class FavouritesFragment extends Fragment {
-    public FavouritesFragment() {
+public class FavoritesFragment extends Fragment {
+    public FavoritesFragment() {
         // Required empty public constructor
     }
 
@@ -26,7 +26,7 @@ public class FavouritesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_favourites, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_favorites, container, false);
 
 
         // Inflate the layout for this fragment
@@ -41,5 +41,9 @@ public class FavouritesFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    public static String getCounter() {
+        return "5";
     }
 }
