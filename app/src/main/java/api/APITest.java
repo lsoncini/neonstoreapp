@@ -2,13 +2,29 @@ package api;
 
 import api.response.APIError;
 import api.response.ProductListResponse;
+import api.response.ProductResponse;
 import model.Product;
 
 public class APITest {
 
-    public static void main(String[] args) {
-        final Store store = Store.getInstance();
+    static final Store store = Store.getInstance();
 
+
+    public static void fetchProductExample() {
+        APIBack<ProductResponse> apiBack =  new APIBack<ProductResponse>() {
+            public void onSuccess(ProductResponse res) {
+                System.out.println(res.product);
+            }
+
+            public void onError(APIError err) {
+                System.err.println(err);
+            }
+        };
+
+        store.fetchProduct(1, apiBack);
+    }
+
+    public static void searchProductsExample() {
         APIQuery query = new APIQuery()
             .category(store.getCategories().get(0))
             .page(1, 5)
@@ -18,16 +34,20 @@ public class APITest {
         APIBack<ProductListResponse> apiBack =  new APIBack<ProductListResponse>() {
             public void onSuccess(ProductListResponse res) {
                 for (Product p: res.products)
-                    System.out.println(p.name + ": " + p.price);
+                    System.out.println(p);
             }
 
             public void onError(APIError err) {
-                System.out.println("here");
                 System.err.println(err);
             }
         };
 
-        store.findProducts(query, apiBack);
+        store.searchProducts(query, apiBack);
+    }
+
+    public static void main(String[] args) {
+//        searchProductsExample();
+        fetchProductExample();
     }
 
 }

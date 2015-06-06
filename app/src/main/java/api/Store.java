@@ -1,11 +1,18 @@
 package api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.Arrays;
 import java.util.List;
 
+import api.deserialize.ProductDeserializer;
 import api.response.ProductListResponse;
+import api.response.ProductResponse;
 import model.Category;
+import model.Product;
 import retrofit.RestAdapter;
+import retrofit.converter.GsonConverter;
 
 public class Store {
 
@@ -16,11 +23,19 @@ public class Store {
     }
 
 
-    private static final API api = new RestAdapter.Builder()
-        .setEndpoint(API.root)
-        .build()
-        .create(API.class)
-    ;
+    private static API api;
+
+    {
+        Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Product.class, new ProductDeserializer())
+        .create();
+
+        api = new RestAdapter.Builder()
+            .setEndpoint(API.root)
+            .setConverter(new GsonConverter(gson))
+            .build()
+        .create(API.class);
+    }
 
 
     private static final Category[] categories = {
@@ -34,7 +49,7 @@ public class Store {
         return Arrays.asList(categories);
     }
 
-    public void findProducts(APIQuery query, APIBack<ProductListResponse> apiBack) {
+    public void searchProducts(APIQuery query, APIBack<ProductListResponse> apiBack) {
         api.getProductsByCategory(
             query.category.id,
             query.page,
@@ -43,5 +58,9 @@ public class Store {
             query.sortOrder,
             apiBack
         );
+    }
+
+    public void fetchProduct(int productId, APIBack<ProductResponse> apiBack) {
+        api.getProductById(productId, apiBack);
     }
 }

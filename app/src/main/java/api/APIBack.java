@@ -14,9 +14,7 @@ public abstract class APIBack<T extends APIResponse> implements Callback<T> {
     @Override
     public final void success(T apiResponse, Response response) {
         if (response.getStatus() != 200) {
-            onError(
-                new APIError(-2, "HTTP " + response.getStatus() + "\n" + response.getBody())
-            );
+            onError(new APIError(response));
 
         } else if (apiResponse.error != null)
             onError(apiResponse.error);
@@ -26,7 +24,7 @@ public abstract class APIBack<T extends APIResponse> implements Callback<T> {
     }
 
     @Override
-    public final void failure(RetrofitError rferror) {
-        onError(new APIError(-1, rferror.toString()));
+    public final void failure(RetrofitError error) {
+        onError(new APIError(error));
     }
 }

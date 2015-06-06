@@ -2,6 +2,7 @@ package api;
 
 import api.response.CategoryListResponse;
 import api.response.ProductListResponse;
+import api.response.ProductResponse;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;
@@ -23,5 +24,8 @@ public interface API {
     );
 
     @GET("/Catalog.groovy?method=GetAllCategories")
-    void getCategories(Callback<CategoryListResponse> cb);
+    void getAllCategories(Callback<CategoryListResponse> cb);
+
+    @GET("/Catalog.groovy?method=GetProductById")
+    void getProductById(@Query("id") int productId, Callback<ProductResponse> cb);
 }
