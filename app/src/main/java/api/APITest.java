@@ -1,18 +1,33 @@
 package api;
 
+import api.response.APIError;
+import api.response.ProductListResponse;
+import model.Product;
+
 public class APITest {
 
-
     public static void main(String[] args) {
-//        API api = Neon.getAPI();
+        final Store store = Store.getInstance();
 
-//        ProductListResponse res = api.getProductsByCategory(1);
+        APIQuery query = new APIQuery()
+            .category(store.getCategories().get(0))
+            .page(1, 5)
+            .orderBy(APIQuery.BY_NAME, APIQuery.ASC)
+        ;
 
-//        System.out.println(res.meta.uuid);
-//
-//        for (Product product : res.products)
-//            for (String image: product.images)
-//                System.out.println(image);
+        APIBack<ProductListResponse> apiBack =  new APIBack<ProductListResponse>() {
+            public void onSuccess(ProductListResponse res) {
+                for (Product p: res.products)
+                    System.out.println(p.name + ": " + p.price);
+            }
+
+            public void onError(APIError err) {
+                System.out.println("here");
+                System.err.println(err);
+            }
+        };
+
+        store.findProducts(query, apiBack);
     }
 
 }

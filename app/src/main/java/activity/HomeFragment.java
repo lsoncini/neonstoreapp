@@ -9,13 +9,8 @@ import android.view.ViewGroup;
 
 import com.neon.neonstore.R;
 
-import api.ProductListResponse;
-import application.Neon;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 import view.ProductGrid;
 
 
@@ -35,15 +30,15 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.inject(this, view);
 
-        Neon.getAPI().getProductsByCategory(1, new Callback<ProductListResponse>() {
-            public void success(ProductListResponse res, Response response) {
-                productGrid.setProducts(res.products);
-            }
-
-            public void failure(RetrofitError error) {
-                System.out.println(error);
-            }
-        });
+//        Neon.getAPI().getProductsByCategory(1, new Callback<ProductListResponse>() {
+//            public void success(ProductListResponse res, Response response) {
+//                productGrid.setProducts(res.products);
+//            }
+//
+//            public void failure(RetrofitError error) {
+//                System.out.println(error);
+//            }
+//        });
 
         return view;
     }

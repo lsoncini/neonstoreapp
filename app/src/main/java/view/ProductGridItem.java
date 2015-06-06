@@ -41,7 +41,7 @@ public class ProductGridItem extends FrameLayout {
 
     void setProduct(Product product) {
         name.setText(product.name);
-        price.setText(product.category.name);
+        price.setText("$" + product.price);
 
         Picasso.with(getContext())
             .load(product.images[0])

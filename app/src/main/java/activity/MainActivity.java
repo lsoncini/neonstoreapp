@@ -1,31 +1,27 @@
 package activity;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.neon.neonstore.R;
 
 
-public class MainActivity extends ActionBarActivity implements FragmentDrawer.FragmentDrawerListener {
+public class MainActivity extends ActionBarActivity implements DrawerFragment.FragmentDrawerListener {
 
     private Toolbar mToolbar;
-    private FragmentDrawer drawerFragment;
+    private DrawerFragment drawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +33,7 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        drawerFragment = (FragmentDrawer)
+        drawerFragment = (DrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
