@@ -1,5 +1,6 @@
 package activity;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,7 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextClock;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.neon.neonstore.R;
@@ -46,6 +51,19 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        RelativeLayout cartLayout = (RelativeLayout) menu.findItem(R.id.action_cart).getActionView();
+        TextView cartTV = (TextView) cartLayout.findViewById(R.id.action_counter);
+        cartTV.setText(CartFragment.getCounter());
+        ImageView cartIV= (ImageView) cartLayout.findViewById(R.id.action_icon);
+        cartIV.setImageResource(R.drawable.ic_action_cart);
+
+        RelativeLayout favLayout = (RelativeLayout) menu.findItem(R.id.action_favorites).getActionView();
+        TextView favTV = (TextView) favLayout.findViewById(R.id.action_counter);
+        favTV.setText(FavoritesFragment.getCounter());
+        ImageView favIV= (ImageView) favLayout.findViewById(R.id.action_icon);
+        favIV.setImageResource(R.drawable.ic_action_favorites);
+
         return true;
     }
 
@@ -69,6 +87,11 @@ public class MainActivity extends ActionBarActivity implements FragmentDrawer.Fr
 
         if(id == R.id.action_cart){
             changeFragment(new CartFragment(),getString(R.string.title_cart));
+            return true;
+        }
+
+        if(id == R.id.action_favorites){
+            changeFragment(new FavoritesFragment(),getString(R.string.title_favorites));
             return true;
         }
 

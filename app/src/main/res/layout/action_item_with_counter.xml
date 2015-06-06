@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="48dp"
+    android:layout_height="fill_parent"
+    android:layout_gravity="right"
+    android:paddingTop="5dp">
+
+    <!-- Menu Item Image -->
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="fill_parent"
+        android:id="@+id/action_icon"
+        android:src="@drawable/ic_action_cart"/>
+
+    <!-- Counter -->
+    <TextView
+        android:id="@+id/action_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="99"
+        android:textColor="@android:color/white"
+        android:background="@drawable/counter_bg"/>
+
+</RelativeLayout>
