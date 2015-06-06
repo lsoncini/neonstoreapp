@@ -5,9 +5,9 @@ import java.util.List;
 import model.Product;
 
 public class ProductListResponse extends APIResponse {
-    int page;
-    int pageSize;
-    int total;
+    public int page;
+    public int pageSize;
+    public int total;
 
-    List<Product> products;
+    public List<Product> products;
 }
