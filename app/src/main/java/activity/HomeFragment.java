@@ -9,6 +9,11 @@ import android.view.ViewGroup;
 
 import com.neon.neonstore.R;
 
+import api.APIBack;
+import api.APIQuery;
+import api.Store;
+import api.response.APIError;
+import api.response.ProductListResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import view.ProductGrid;
@@ -18,7 +23,12 @@ public class HomeFragment extends Fragment {
 
     @InjectView(R.id.productGrid) ProductGrid productGrid;
 
+
+    final Store store = Store.getInstance();
+
+
     public HomeFragment() {}
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,15 +40,23 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.inject(this, view);
 
-//        Neon.getAPI().getProductsByCategory(1, new Callback<ProductListResponse>() {
-//            public void success(ProductListResponse res, Response response) {
-//                productGrid.setProducts(res.products);
-//            }
-//
-//            public void failure(RetrofitError error) {
-//                System.out.println(error);
-//            }
-//        });
+        APIQuery query = new APIQuery()
+            .category(store.getCategories().get(0))
+            .page(1, 8)
+            .orderBy(APIQuery.BY_NAME, APIQuery.ASC)
+        ;
+
+        APIBack<ProductListResponse> apiBack =  new APIBack<ProductListResponse>() {
+            public void onSuccess(ProductListResponse res) {
+                productGrid.setProducts(res.products);
+            }
+
+            public void onError(APIError err) {
+                System.err.println(err);
+            }
+        };
+
+        store.searchProducts(query, apiBack);
 
         return view;
     }
