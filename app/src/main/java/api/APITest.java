@@ -13,7 +13,7 @@ public class APITest {
     public static void fetchProductExample() {
         APIBack<ProductResponse> apiBack =  new APIBack<ProductResponse>() {
             public void onSuccess(ProductResponse res) {
-                System.out.println(res.product);
+                System.out.println(res.product.inspect());
             }
 
             public void onError(APIError err) {
@@ -34,7 +34,7 @@ public class APITest {
         APIBack<ProductListResponse> apiBack =  new APIBack<ProductListResponse>() {
             public void onSuccess(ProductListResponse res) {
                 for (Product p: res.products)
-                    System.out.println(p);
+                    System.out.println(p.inspect());
             }
 
             public void onError(APIError err) {

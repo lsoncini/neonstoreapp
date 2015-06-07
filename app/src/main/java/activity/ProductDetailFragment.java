@@ -1,7 +1,6 @@
 package activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +14,19 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Product;
 
-public class ProductDetailFragment extends Fragment {
+public class ProductDetailFragment extends NeonFragment {
 
     @InjectView(R.id.name)  TextView name;
     @InjectView(R.id.price) TextView price;
     @InjectView(R.id.image) ImageView image;
 
     public Product product;
+
+
+    @Override
+    public String getTitle() {
+        return "Producto";
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

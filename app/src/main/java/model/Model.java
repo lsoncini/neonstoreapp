@@ -5,7 +5,7 @@ import java.lang.reflect.Modifier;
 
 public class Model {
 
-    public String toString() {
+    public String inspect() {
         try {
             String s = "<" + this.getClass().getSimpleName() + "\n";
 

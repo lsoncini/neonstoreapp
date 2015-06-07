@@ -17,34 +17,55 @@ import butterknife.InjectView;
 import view.ProductGrid;
 import view.ProductGrid.ProductGridListener;
 
-
-public class HomeFragment extends NeonFragment {
+public class ProductGridFragment extends NeonFragment {
 
     final Store store = Store.getInstance();
 
-
     @InjectView(R.id.productGrid) ProductGrid productGrid;
+
+    // The items currently displayed in the grid were fetched using this query:
+    APIQuery query;
+    boolean queryChanged;
 
 
     @Override
     public String getTitle() {
-        return "Neon";
+        return "Resultados";
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
         ButterKnife.inject(this, view);
 
         productGrid.setListener((ProductGridListener) getActivity());
 
-        APIQuery query = new APIQuery()
-            .category(store.getCategories().get(0))
-            .page(1, 8)
-            .orderBy(APIQuery.BY_NAME, APIQuery.ASC)
-        ;
+        return view;
+    }
 
-        APIBack<ProductListResponse> apiBack =  new APIBack<ProductListResponse>() {
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateView();
+    }
+
+
+    public ProductGridFragment setQuery(APIQuery query) {
+        this.query = query;
+        queryChanged = true;
+        updateView();
+        return this;
+    }
+
+    public void updateView() {
+        if (getView() == null || !queryChanged) return;
+
+        productGrid.clear();
+        queryChanged = false;
+
+        store.searchProducts(query, new APIBack<ProductListResponse>() {
+
             public void onSuccess(ProductListResponse res) {
                 productGrid.setProducts(res.products);
             }
@@ -52,16 +73,7 @@ public class HomeFragment extends NeonFragment {
             public void onError(APIError err) {
                 System.err.println(err);
             }
-        };
 
-        store.searchProducts(query, apiBack);
-
-        return view;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        productGrid.setListener(null);
+        });
     }
 }

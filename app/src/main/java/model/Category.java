@@ -11,6 +11,11 @@ public class Category extends Model {
 
     @Override
     public String toString() {
+        return name;
+    }
+
+    @Override
+    public String inspect() {
         return "<Category " + id + ": " + name + ">";
     }
 }

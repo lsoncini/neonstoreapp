@@ -53,6 +53,14 @@ public class ProductGrid extends FrameLayout {
         grid.setOnItemClickListener(onGridItemClick);
     }
 
+    public void clear() {
+        adapter.clear();
+    }
+
+    public void addProducts(List<Product> products) {
+        adapter.addAll(products);
+    }
+
     public void setProducts(List<Product> products) {
         adapter.clear();
         adapter.addAll(products);

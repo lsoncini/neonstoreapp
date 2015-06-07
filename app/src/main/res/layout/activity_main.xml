@@ -34,11 +34,11 @@
 
     <fragment
         android:id="@+id/fragment_navigation_drawer"
-        android:name="activity.DrawerFragment"
+        android:name="activity.SidebarFragment"
         android:layout_width="@dimen/nav_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:layout="@layout/fragment_navigation_drawer"
-        tools:layout="@layout/fragment_navigation_drawer" />
+        app:layout="@layout/fragment_sidebar"
+        tools:layout="@layout/fragment_sidebar" />
 
 </android.support.v4.widget.DrawerLayout>
