@@ -2,8 +2,6 @@ package activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,28 +15,37 @@ import android.widget.Toast;
 
 import com.neon.neonstore.R;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import model.Product;
+import view.ProductGrid.ProductGridListener;
 
-public class MainActivity extends ActionBarActivity implements DrawerFragment.FragmentDrawerListener {
 
-    private Toolbar mToolbar;
+public class MainActivity extends ActionBarActivity implements DrawerFragment. FragmentDrawerListener, ProductGridListener {
+
+    @InjectView(R.id.toolbar)       Toolbar toolbar;
+    @InjectView(R.id.drawer_layout) DrawerLayout drawerLayout;
+
     private DrawerFragment drawerFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.inject(this);
 
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        drawerFragment = (DrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+        drawerFragment = (DrawerFragment) getSupportFragmentManager()
+            .findFragmentById(R.id.fragment_navigation_drawer)
+        ;
+
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, drawerLayout, toolbar);
         drawerFragment.setDrawerListener(this);
 
-        // display the first navigation drawer view on app launch
         displayView(0);
     }
 
@@ -133,14 +140,19 @@ public class MainActivity extends ActionBarActivity implements DrawerFragment.Fr
     }
 
     void changeFragment(Fragment fragment, String title){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container_body, fragment);
-        fragmentTransaction.commit();
+        getSupportFragmentManager().beginTransaction()
+            .replace(R.id.container_body, fragment)
+        .commit();
 
         // set the toolbar title
         getSupportActionBar().setTitle(title);
-
     }
 
+    @Override
+    public void onProductSelected(Product product) {
+        changeFragment(
+            new ProductDetailFragment().setProduct(product),
+            "Producto"
+        );
+    }
 }

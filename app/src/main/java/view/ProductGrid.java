@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -18,9 +20,14 @@ import model.Product;
 
 public class ProductGrid extends FrameLayout {
 
+    public interface ProductGridListener {
+        void onProductSelected(Product product);
+    }
+
     @InjectView(R.id.grid) GridView grid;
 
     ProductAdapter adapter;
+    ProductGridListener listener;
 
 
     public ProductGrid(Context context) {
@@ -43,12 +50,26 @@ public class ProductGrid extends FrameLayout {
         ButterKnife.inject(this);
 
         grid.setAdapter(adapter = new ProductAdapter(getContext()));
+        grid.setOnItemClickListener(onGridItemClick);
     }
 
     public void setProducts(List<Product> products) {
         adapter.clear();
         adapter.addAll(products);
     }
+
+    public void setListener(ProductGridListener listener) {
+        this.listener = listener;
+    }
+
+
+    private final OnItemClickListener onGridItemClick = new OnItemClickListener() {
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (listener != null)
+                listener.onProductSelected(adapter.getItem(position));
+        }
+    };
+
 
     public static class ProductAdapter extends ArrayAdapter<Product> {
 
