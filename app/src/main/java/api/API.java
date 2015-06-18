@@ -19,6 +19,7 @@ public interface API {
         @Query("page_size")  int pageSize,
         @Query("sort_key")   String sortKey,
         @Query("sort_order") String sortOrder,
+        @Query("filters")    String filters,
 
         Callback<ProductListResponse> cb
     );

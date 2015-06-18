@@ -12,6 +12,7 @@ import api.response.ProductResponse;
 import model.Category;
 import model.Product;
 import retrofit.RestAdapter;
+import retrofit.RestAdapter.LogLevel;
 import retrofit.converter.GsonConverter;
 
 public class Store {
@@ -33,6 +34,7 @@ public class Store {
         api = new RestAdapter.Builder()
             .setEndpoint(API.root)
             .setConverter(new GsonConverter(gson))
+            .setLogLevel(LogLevel.FULL)
             .build()
         .create(API.class);
     }
@@ -50,12 +52,14 @@ public class Store {
     }
 
     public void searchProducts(APIQuery query, APIBack<ProductListResponse> apiBack) {
+        System.out.println(new Gson().toJson(query.filters));
         api.getProductsByCategory(
             query.category.id,
             query.page,
             query.pageSize,
             query.sortKey,
             query.sortOrder,
+            new Gson().toJson(query.filters),
             apiBack
         );
     }

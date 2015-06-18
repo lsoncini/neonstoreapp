@@ -15,10 +15,12 @@ import android.widget.Toast;
 import com.neon.neonstore.R;
 
 import activity.SidebarFragment.SidebarListener;
+import api.APIQuery;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Category;
 import model.Product;
+import model.Section;
 import view.ProductGrid.ProductGridListener;
 
 
@@ -102,8 +104,17 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     }
 
     @Override
-    public void onSidebarCategory(Category category) {
-        navTo(new CategoryFragment().setCategory(category));
+    public void onSidebarCategory(Section section, Category category) {
+        System.out.println("SECTION IS " + section + ":" + category);
+        APIQuery query = new APIQuery()
+            .category(category)
+            .whereAge(section.age)
+            .whereGender(section.gender)
+            .page(1, 8)
+            .orderBy(APIQuery.BY_NAME, APIQuery.ASC)
+        ;
+
+        navTo(new ProductGridFragment().setQuery(query));
     }
 
     void navTo(NeonFragment fragment){

@@ -10,6 +10,9 @@ import java.lang.reflect.Type;
 
 import api.response.APIAttribute;
 import model.Product;
+import model.Product.Age;
+import model.Product.Color;
+import model.Product.Gender;
 
 public class ProductDeserializer implements JsonDeserializer<Product> {
 
@@ -19,24 +22,31 @@ public class ProductDeserializer implements JsonDeserializer<Product> {
         Product product = gson.fromJson(json, typeOfT);
 
         for (APIAttribute attr: product.attributes) {
+            String name  = attr.name;
             String value = attr.values.get(0);
 
-            if (attr.name.equals("Marca"))
+            if (name.equals("Edad"))
+                product.age = Age.valueOf(value);
+            else
+            if (name.equals("Genero"))
+                product.gender = Gender.valueOf(value);
+            else
+            if (name.equals("Marca"))
                 product.brand = value;
             else
-            if (attr.name.equals("Color"))
-                product.color = value;
+            if (name.equals("Color"))
+                product.color = Color.valueOf(value);
             else
-            if (attr.name.startsWith("Material"))
+            if (name.startsWith("Material"))
                 product.material = value;
             else
-            if (attr.name.startsWith("Talle"))
+            if (name.startsWith("Talle"))
                 product.sizes = attr.values;
             else
-            if (attr.name.equals("Nuevo") && value.equals("Nuevo"))
+            if (name.equals("Nuevo") && value.equals("Nuevo"))
                 product.is_new = true;
             else
-            if (attr.name.equals("Oferta") && value.equals("Oferta"))
+            if (name.equals("Oferta") && value.equals("Oferta"))
                 product.is_offer = true;
         }
 

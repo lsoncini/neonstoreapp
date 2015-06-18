@@ -8,6 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="140dp"
+        android:layout_marginBottom="15dp"
         android:background="@color/colorPrimary">
 
         <LinearLayout
@@ -46,17 +47,53 @@
     </RelativeLayout>
 
 
-    <Button
-        android:id="@+id/navHome"
+    <RelativeLayout
+        android:id="@+id/nav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Home" />
+        android:layout_height="wrap_content">
 
-    <ListView
-        android:id="@+id/navCategories"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp" />
+        <LinearLayout
+            android:id="@+id/navMainMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/navHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Inicio" />
+
+            <ListView
+                android:id="@+id/navSections"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/navSectionMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/navMainMenu"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/navSectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ListView
+                android:id="@+id/navCategories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <!--<Button-->
         <!--android:id="@+id/navigateMen"-->

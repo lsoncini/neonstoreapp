@@ -14,6 +14,7 @@ import api.response.APIError;
 import api.response.ProductListResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import model.Product.Color;
 import view.ProductGrid;
 import view.ProductGrid.ProductGridListener;
 
@@ -42,9 +43,10 @@ public class HomeFragment extends NeonFragment {
             .category(store.getCategories().get(0))
             .page(1, 8)
             .orderBy(APIQuery.BY_NAME, APIQuery.ASC)
+            .whereColor(Color.Blanco)
         ;
 
-        APIBack<ProductListResponse> apiBack =  new APIBack<ProductListResponse>() {
+        store.searchProducts(query, new APIBack<ProductListResponse>() {
             public void onSuccess(ProductListResponse res) {
                 productGrid.setProducts(res.products);
             }
@@ -52,9 +54,7 @@ public class HomeFragment extends NeonFragment {
             public void onError(APIError err) {
                 System.err.println(err);
             }
-        };
-
-        store.searchProducts(query, apiBack);
+        });
 
         return view;
     }

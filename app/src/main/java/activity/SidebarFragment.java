@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.neon.neonstore.R;
 
@@ -21,6 +22,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import model.Category;
+import model.Section;
 
 public class SidebarFragment extends Fragment {
 
@@ -30,7 +32,7 @@ public class SidebarFragment extends Fragment {
 
     public interface SidebarListener {
         void onSidebarHome();
-        void onSidebarCategory(Category category);
+        void onSidebarCategory(Section section, Category category);
     }
 
 
@@ -39,16 +41,32 @@ public class SidebarFragment extends Fragment {
     private NavigationDrawerAdapter adapter;
 
 
-    @InjectView(R.id.navHome)       Button   navHome;
-    @InjectView(R.id.navCategories) ListView navCategories;
+    @InjectView(R.id.navHome) Button  navHome;
+
+    @InjectView(R.id.nav)             View     nav;
+    @InjectView(R.id.navMainMenu)     View     navMainMenu;
+    @InjectView(R.id.navSections)     ListView navSections;
+    @InjectView(R.id.navSectionMenu)  View     navSectionMenu;
+    @InjectView(R.id.navSectionTitle) TextView navSectionTitle;
+    @InjectView(R.id.navCategories)   ListView navCategories;
+
 
     private SidebarListener listener;
+    private Section selectedSection;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sidebar, container, false);
         ButterKnife.inject(this, view);
+
+        navSections.setAdapter(
+            new ArrayAdapter<Section>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                Section.values()
+            )
+        );
 
         navCategories.setAdapter(
             new ArrayAdapter<Category>(
@@ -67,15 +85,48 @@ public class SidebarFragment extends Fragment {
     }
 
 
+    public void selectSection(Section section) {
+        selectedSection = section;
+        navSectionTitle.setText(selectedSection.name());
+
+//        int offset = -navMainMenu.getWidth();
+//        navMainMenu.animate().translationXBy(offset);
+//        navSectionMenu.animate().translationXBy(offset);
+
+        navMainMenu.setVisibility(View.GONE);
+        navSectionMenu.setVisibility(View.VISIBLE);
+    }
+
+
+    public void unselectSection() {
+        selectedSection = null;
+
+//        int offset = navSectionMenu.getWidth();
+//        navMainMenu.animate().translationXBy(offset);
+//        navSectionMenu.animate().translationXBy(offset);
+        navMainMenu.setVisibility(View.VISIBLE);
+        navSectionMenu.setVisibility(View.GONE);
+    }
+
+
     @OnClick(R.id.navHome)
     public void onNavHome() {
         if (listener != null) listener.onSidebarHome();
     }
 
+
+    @OnItemClick(R.id.navSections)
+    public void onNavSectionsItemClick(int position) {
+        selectSection(Section.values()[position]);
+    }
+
+
     @OnItemClick(R.id.navCategories)
     public void onNavCategoriesItemClick(int position) {
         if (listener != null)
-            listener.onSidebarCategory(store.getCategories().get(position));
+            listener.onSidebarCategory(selectedSection, store.getCategories().get(position));
+
+        unselectSection();
     }
 
 
@@ -110,8 +161,6 @@ public class SidebarFragment extends Fragment {
         });
 
     }
-
-
 //    public static class CategoryAdapter extends ArrayAdapter<Category> {
 //
 //        public CategoryAdapter(Context context) {
