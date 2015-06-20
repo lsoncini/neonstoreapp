@@ -32,28 +32,19 @@ public class APIQuery {
     public String sortOrder;
 
 
-    public APIQuery category(Category category) {
+    public APIQuery whereName(String name) {
+        if (category != null)
+            throw new RuntimeException("API can't filter by both name and category");
+
+        this.name = name;
+        return this;
+    }
+
+    public APIQuery whereCategory(Category category) {
+        if (name != null)
+            throw new RuntimeException("API can't filter by both name and category");
+
         this.category = category;
-        return this;
-    }
-
-    public APIQuery page(int page) {
-        return page(page, 8);
-    }
-
-    public APIQuery page(int page, int pageSize) {
-        this.page = page;
-        this.pageSize = pageSize;
-        return this;
-    }
-
-    public APIQuery orderBy(String sortKey) {
-        return orderBy(sortKey, ASC);
-    }
-
-    public APIQuery orderBy(String sortKey, String sortOrder) {
-        this.sortKey = sortKey;
-        this.sortOrder = sortOrder;
         return this;
     }
 
@@ -77,7 +68,27 @@ public class APIQuery {
         return where(Product.IS_OFFER, "Oferta");
     }
 
-    public APIQuery where(int filterId, String value) {
+    public APIQuery page(int page) {
+        return page(page, 8);
+    }
+
+    public APIQuery page(int page, int pageSize) {
+        this.page = page;
+        this.pageSize = pageSize;
+        return this;
+    }
+
+    public APIQuery orderBy(String sortKey) {
+        return orderBy(sortKey, ASC);
+    }
+
+    public APIQuery orderBy(String sortKey, String sortOrder) {
+        this.sortKey = sortKey;
+        this.sortOrder = sortOrder;
+        return this;
+    }
+
+    private APIQuery where(int filterId, String value) {
         filters.add(new APIFilter(filterId, value));
         return this;
     }

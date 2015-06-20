@@ -52,7 +52,28 @@ public class Store {
     }
 
     public void searchProducts(APIQuery query, APIBack<ProductListResponse> apiBack) {
-        System.out.println(new Gson().toJson(query.filters));
+        if (query.name != null)
+            searchProductsByName(query, apiBack);
+        else
+        if (query.category != null)
+            searchProductsByCategory(query, apiBack);
+        else
+            throw new RuntimeException("Can't search without category or name");
+    }
+
+    private void searchProductsByName(APIQuery query, APIBack<ProductListResponse> apiBack) {
+        api.getProductsByName(
+            query.name,
+            query.page,
+            query.pageSize,
+            query.sortKey,
+            query.sortOrder,
+            new Gson().toJson(query.filters),
+            apiBack
+        );
+    }
+
+    private void searchProductsByCategory(APIQuery query, APIBack<ProductListResponse> apiBack) {
         api.getProductsByCategory(
             query.category.id,
             query.page,

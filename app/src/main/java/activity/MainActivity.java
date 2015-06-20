@@ -2,14 +2,14 @@ package activity;
 
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.neon.neonstore.R;
@@ -57,20 +57,11 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        RelativeLayout cartLayout = (RelativeLayout) menu.findItem(R.id.action_cart).getActionView();
-        TextView cartTV = (TextView) cartLayout.findViewById(R.id.action_counter);
-        cartTV.setText(CartFragment.getCounter());
-        ImageView cartIV= (ImageView) cartLayout.findViewById(R.id.action_icon);
-        cartIV.setImageResource(R.drawable.ic_action_cart);
-
-        RelativeLayout favLayout = (RelativeLayout) menu.findItem(R.id.action_favorites).getActionView();
-        TextView favTV = (TextView) favLayout.findViewById(R.id.action_counter);
-        favTV.setText(FavoritesFragment.getCounter());
-        ImageView favIV= (ImageView) favLayout.findViewById(R.id.action_icon);
-        favIV.setImageResource(R.drawable.ic_action_favorites);
+        MenuItem searchItem = menu.findItem(R.id.menu_search);
+        SearchView searchBox = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchBox.setOnQueryTextListener(searchListener);
 
         return true;
     }
@@ -84,11 +75,6 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
             return true;
         }
 
-        if (id == R.id.action_search){
-            Toast.makeText(getApplicationContext(), "Search action is selected!", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -97,7 +83,6 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         navTo(new ProductDetailFragment().setProduct(product));
     }
 
-
     @Override
     public void onSidebarHome() {
         navTo(new HomeFragment());
@@ -105,9 +90,8 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
 
     @Override
     public void onSidebarCategory(Section section, Category category) {
-        System.out.println("SECTION IS " + section + ":" + category);
         APIQuery query = new APIQuery()
-            .category(category)
+            .whereCategory(category)
             .whereAge(section.age)
             .whereGender(section.gender)
             .page(1, 8)
@@ -117,10 +101,28 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         navTo(new ProductGridFragment().setQuery(query));
     }
 
-    void navTo(NeonFragment fragment){
+    private final OnQueryTextListener searchListener = new OnQueryTextListener() {
+        public boolean onQueryTextSubmit(String queryText) {
+            APIQuery query = new APIQuery()
+                .whereName(queryText)
+                .page(1, 8)
+            ;
+
+            navTo(new ProductGridFragment().setQuery(query));
+            return false;
+        }
+
+        public boolean onQueryTextChange(String queryText) {
+            return false;
+        }
+    };
+
+    void navTo(NeonFragment fragment) {
         getSupportFragmentManager().beginTransaction()
             .replace(R.id.container_body, fragment)
-            .commit();
+            .addToBackStack("")
+            .commit()
+        ;
 
         getSupportActionBar().setTitle(fragment.getTitle());
         drawerLayout.closeDrawers();
