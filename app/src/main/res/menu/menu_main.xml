@@ -21,8 +21,14 @@
         <!--android:id="@+id/action_favorites"-->
         <!--android:title="@string/title_favorites"-->
         <!--app:actionLayout="@layout/action_item_with_counter"-->
-        <!--android:icon="@drawable/ic_action_favorites"-->
-        <!--app:showAsAction="never"/>-->
+
+    <!--app:showAsAction="never"/>-->
+    <!--android:icon="@drawable/ic_action_favorites"-->
+
+    <item
+        android:id="@+id/action_login"
+        android:title="@string/action_login"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_settings"

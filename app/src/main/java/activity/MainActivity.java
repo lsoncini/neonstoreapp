@@ -73,6 +73,11 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         if (id == R.id.action_settings) {
             Toast.makeText(getApplicationContext(), "Settings action is selected!", Toast.LENGTH_SHORT).show();
             return true;
+
+        } else
+        if (id == R.id.action_login) {
+            navTo(new LoginFragment());
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

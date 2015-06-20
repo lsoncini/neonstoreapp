@@ -15,7 +15,7 @@ public class Model {
                 String name  = field.getName();
                 Object value = field.get(this);
 
-                s += "\t" + String.format("%-12s", name) + value + "\n";
+                s += "\t" + String.format("%-12s", name) + " " + value + "\n";
             }
 
             return s + ">";
@@ -23,5 +23,10 @@ public class Model {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public String toString() {
+        return inspect();
     }
 }
