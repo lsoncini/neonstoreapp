@@ -23,7 +23,6 @@ public class HomeFragment extends NeonFragment {
 
     final Store store = Store.getInstance();
 
-
     @InjectView(R.id.productGrid) ProductGrid productGrid;
 
 
@@ -46,8 +45,11 @@ public class HomeFragment extends NeonFragment {
             .whereColor(Color.Blanco)
         ;
 
+        showSpinner();
+
         store.searchProducts(query, new APIBack<ProductListResponse>() {
             public void onSuccess(ProductListResponse res) {
+                hideSpinner();
                 productGrid.setProducts(res.products);
             }
 

@@ -115,6 +115,8 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         ;
 
         navTo(new ProductGridFragment().setQuery(query));
+
+
     }
 
     void navTo(NeonFragment fragment){

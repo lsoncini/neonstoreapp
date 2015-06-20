@@ -64,9 +64,12 @@ public class ProductGridFragment extends NeonFragment {
         productGrid.clear();
         queryChanged = false;
 
+        showSpinner();
+
         store.searchProducts(query, new APIBack<ProductListResponse>() {
 
             public void onSuccess(ProductListResponse res) {
+                hideSpinner();
                 productGrid.setProducts(res.products);
             }
 
