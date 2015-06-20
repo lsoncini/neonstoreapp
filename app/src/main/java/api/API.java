@@ -1,6 +1,7 @@
 package api;
 
 import api.response.CategoryListResponse;
+import api.response.LoginResponse;
 import api.response.ProductListResponse;
 import api.response.ProductResponse;
 import retrofit.Callback;
@@ -22,6 +23,26 @@ public interface API {
         @Query("filters")    String filters,
 
         Callback<ProductListResponse> cb
+    );
+
+    @GET("/Catalog.groovy?method=GetProductsByName")
+    void getProductsByName(
+        @Query("name")       String name,
+        @Query("page")       int page,
+        @Query("page_size")  int pageSize,
+        @Query("sort_key")   String sortKey,
+        @Query("sort_order") String sortOrder,
+        @Query("filters")    String filters,
+
+        Callback<ProductListResponse> cb
+    );
+
+    @GET("/Account.groovy?method=SignIn")
+    void login(
+        @Query("username") String username,
+        @Query("password") String password,
+
+        Callback<LoginResponse> cb
     );
 
     @GET("/Catalog.groovy?method=GetAllCategories")

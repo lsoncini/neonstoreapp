@@ -26,7 +26,7 @@ public class APITest {
 
     public static void searchProductsExample() {
         APIQuery query = new APIQuery()
-            .category(store.getCategories().get(0))
+            .whereCategory(store.getCategories().get(0))
             .page(1, 5)
             .orderBy(APIQuery.BY_NAME, APIQuery.ASC)
         ;

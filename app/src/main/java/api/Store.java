@@ -7,10 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import api.deserialize.ProductDeserializer;
+import api.response.APIError;
+import api.response.LoginResponse;
 import api.response.ProductListResponse;
 import api.response.ProductResponse;
 import model.Category;
 import model.Product;
+import model.Session;
 import retrofit.RestAdapter;
 import retrofit.RestAdapter.LogLevel;
 import retrofit.converter.GsonConverter;
@@ -22,7 +25,6 @@ public class Store {
     public static Store getInstance() {
         return instance;
     }
-
 
     private static API api;
 
@@ -39,6 +41,7 @@ public class Store {
         .create(API.class);
     }
 
+    public Session session;
 
     private static final Category[] categories = {
         new Category(1, "Calzado"),
@@ -46,13 +49,34 @@ public class Store {
         new Category(3, "Accesorios"),
     };
 
-
     public List<Category> getCategories() {
         return Arrays.asList(categories);
     }
 
+
     public void searchProducts(APIQuery query, APIBack<ProductListResponse> apiBack) {
-        System.out.println(new Gson().toJson(query.filters));
+        if (query.name != null)
+            searchProductsByName(query, apiBack);
+        else
+        if (query.category != null)
+            searchProductsByCategory(query, apiBack);
+        else
+            throw new RuntimeException("Can't search without category or name");
+    }
+
+    private void searchProductsByName(APIQuery query, APIBack<ProductListResponse> apiBack) {
+        api.getProductsByName(
+            query.name,
+            query.page,
+            query.pageSize,
+            query.sortKey,
+            query.sortOrder,
+            new Gson().toJson(query.filters),
+            apiBack
+        );
+    }
+
+    private void searchProductsByCategory(APIQuery query, APIBack<ProductListResponse> apiBack) {
         api.getProductsByCategory(
             query.category.id,
             query.page,
@@ -66,5 +90,22 @@ public class Store {
 
     public void fetchProduct(int productId, APIBack<ProductResponse> apiBack) {
         api.getProductById(productId, apiBack);
+    }
+
+    public void login(String username, String password, final APIBack<LoginResponse> apiBack) {
+        api.login(username, password, new APIBack<LoginResponse>() {
+            public void onSuccess(LoginResponse res) {
+                session = res.toSession();
+                apiBack.onSuccess(res);
+            }
+
+            public void onError(APIError err) {
+                apiBack.onError(err);
+            }
+        });
+    }
+
+    public void logout() {
+        session = null;
     }
 }

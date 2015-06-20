@@ -172,7 +172,7 @@ public class SidebarFragment extends Fragment {
 //            if (view == null)
 //                view = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1);
 //
-//            Category category = getItem(position);
+//            Category whereCategory = getItem(position);
 //        }
 //    }
 }
