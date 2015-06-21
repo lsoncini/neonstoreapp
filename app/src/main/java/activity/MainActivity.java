@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.neon.neonstore.R;
 
 import activity.SidebarFragment.SidebarListener;
+import activity.NeonFragment.OnFragmentAttachedListener;
 import api.APIQuery;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -28,8 +29,7 @@ import store.SessionListener;
 import store.Store;
 import view.ProductGrid.ProductGridListener;
 
-
-public class MainActivity extends ActionBarActivity implements SidebarListener, ProductGridListener, SessionListener {
+public class MainActivity extends ActionBarActivity implements SidebarListener, ProductGridListener, SessionListener, OnFragmentAttachedListener {
 
     private Store store = Store.getInstance();
 
@@ -112,6 +112,8 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         ;
 
         navTo(new ProductGridFragment().setQuery(query));
+
+
     }
 
     private final OnQueryTextListener searchListener = new OnQueryTextListener() {
@@ -137,7 +139,6 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
             .commit()
         ;
 
-        getSupportActionBar().setTitle(fragment.getTitle());
         drawerLayout.closeDrawers();
     }
 
@@ -154,5 +155,9 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     @Override
     public void onLogout() {
         stopService(new Intent(this, NeonNotificationService.class));
+    }
+
+    public void onFragmentAttached(NeonFragment sender) {
+        getSupportActionBar().setTitle(sender.getTitle());
     }
 }

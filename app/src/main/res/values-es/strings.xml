@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Neon Store</string>
+
+    <string name="action_settings">Ajustes</string>
+    <string name="action_search">Búsqueda</string>
+    <string name="action_login">Iniciar Sesión</string>
+
+    <string name="username">Nombre de Usuario</string>
+    <string name="password">Contraseña</string>
+
+    <string name="drawer_open">Abrir</string>
+    <string name="drawer_close">Cerrar</string>
+
+    <string name="search_hint">Buscar</string>
+    <string name="filter">Filtrar</string>
+    <string name="order">Ordenar</string>
+
+    <string name="nav_item_home">Inicio</string>
+    <string name="nav_item_categories">Cateogrías</string>
+    <string name="nav_item_cart">Carrito de compras</string>
+    <string name="nav_item_favorites">Favoritos</string>
+    <string name="nav_item_help">Ayuda</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_categories</item>
+        <item>@string/nav_item_cart</item>
+        <item>@string/nav_item_favorites</item>
+        <item>@string/nav_item_help</item>
+    </string-array>
+
+    <string name="title_favorites">Favoritos</string>
+    <string name="title_cart">Carrito de compras</string>
+    <string name="title_help">Ayuda</string>
+    <string name="title_categories">Categorías</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_log_in">Iniciar Sesión</string>
+    <string name="title_product">Producto</string>
+    <string name="title_result">Resultados</string>
+    <string name="desc_list_item_icon">Item Icon</string>
+
+    <!-- navigation drawer item icons -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_categories</item>
+        <item>@drawable/ic_cart</item>
+        <item>@drawable/ic_favorites</item>
+        <item>@drawable/ic_help</item>
+    </array>
+</resources>

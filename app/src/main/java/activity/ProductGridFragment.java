@@ -30,7 +30,7 @@ public class ProductGridFragment extends NeonFragment {
 
     @Override
     public String getTitle() {
-        return "Resultados";
+        return getResources().getString(R.string.title_result);
     }
 
 
@@ -64,9 +64,12 @@ public class ProductGridFragment extends NeonFragment {
         productGrid.clear();
         queryChanged = false;
 
+        showSpinner();
+
         store.searchProducts(query, new APIBack<ProductListResponse>() {
 
             public void onSuccess(ProductListResponse res) {
+                hideSpinner();
                 productGrid.setProducts(res.products);
             }
 

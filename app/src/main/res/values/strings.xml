@@ -12,6 +12,8 @@
     <string name="drawer_close">Close</string>
 
     <string name="search_hint">Search</string>
+    <string name="filter">Filter</string>
+    <string name="order">Order</string>
 
     <string name="nav_item_home">Home</string>
     <string name="nav_item_categories">Categories</string>
@@ -43,4 +45,7 @@
         <item>@drawable/ic_favorites</item>
         <item>@drawable/ic_help</item>
     </array>
+    <string name="title_log_in">Log in</string>
+    <string name="title_product">Product</string>
+    <string name="title_result">Result</string>
 </resources>

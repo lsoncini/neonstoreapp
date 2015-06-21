@@ -1,5 +1,6 @@
 package activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ public class LoginFragment extends NeonFragment {
 
     @Override
     public String getTitle() {
-        return "Iniciar sesión";
+        return getResources().getString(R.string.title_log_in);
     }
 
     @Override
