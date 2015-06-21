@@ -4,11 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import api.API;
 import api.APIBack;
 import api.APIQuery;
+import api.deserialize.CalendarDeserializer;
 import api.deserialize.ProductDeserializer;
 import api.response.APIError;
 import api.response.LoginResponse;
@@ -38,6 +40,7 @@ public class Store {
     {
         Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm")
+            .registerTypeAdapter(Calendar.class, new CalendarDeserializer())
             .registerTypeAdapter(Product.class, new ProductDeserializer())
         .create();
 

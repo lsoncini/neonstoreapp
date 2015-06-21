@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.os.SystemClock;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import api.response.OrderListResponse;
 import model.Order;
@@ -15,14 +15,15 @@ public class NeonNotificationService extends Service implements Runnable {
     private String username;
     private String authToken;
 
-    private Date lastCheck;
+    private Calendar lastCheck;
 
     private boolean stopped = false;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        lastCheck = new Date(1);
+        lastCheck = Calendar.getInstance();
+        lastCheck.set(1990, 1, 1); // TODO read this from storage
         start();
     }
 
@@ -72,13 +73,12 @@ public class NeonNotificationService extends Service implements Runnable {
 
             System.out.println("Has " + res.orders.size() + " orders");
 
-            /*
             for (Order order: res.orders) {
                 if (order.hasChangedSince(lastCheck))
                     new OrderStatusNotification(order).show(getApplicationContext());
-            }*/
+            }
 
-            lastCheck = new Date();
+            lastCheck = Calendar.getInstance();
         }
     }
 
