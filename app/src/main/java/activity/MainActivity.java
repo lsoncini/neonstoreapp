@@ -37,7 +37,7 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     @InjectView(R.id.drawer_layout) DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
 
-
+    private SearchView searchView;
     private SidebarFragment sidebar;
 
 
@@ -59,7 +59,11 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         sidebar.setListener(this);
 
         store.setSessionListener(this);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         navTo(new HomeFragment());
     }
 
@@ -68,8 +72,9 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         MenuItem searchItem = menu.findItem(R.id.menu_search);
-        SearchView searchBox = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchBox.setOnQueryTextListener(searchListener);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(searchListener);
+        resetSearchHint();
 
         return true;
     }
@@ -112,6 +117,7 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         ;
 
         navTo(new ProductGridFragment().setQuery(query));
+        setSearchHint(getString(R.string.search_in_hint) + " " + category.name);
     }
 
     private final OnQueryTextListener searchListener = new OnQueryTextListener() {
@@ -138,6 +144,7 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         ;
 
         drawerLayout.closeDrawers();
+        resetSearchHint();
     }
 
     @Override
@@ -157,5 +164,19 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
 
     public void onFragmentAttached(NeonFragment sender) {
         getSupportActionBar().setTitle(sender.getTitle());
+    }
+
+    private void resetSearchHint() {
+        setSearchHint(R.string.search_hint);
+    }
+
+    private void setSearchHint(int res) {
+        System.out.println(res + ":" + getString(res));
+        setSearchHint(getString(res));
+    }
+
+    private void setSearchHint(String hint) {
+        if (searchView != null)
+            searchView.setQueryHint(hint);
     }
 }
