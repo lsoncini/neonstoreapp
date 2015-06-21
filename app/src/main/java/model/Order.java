@@ -1,5 +1,8 @@
 package model;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class Order {
     public static final String
         CREATED   = "1",
@@ -13,11 +16,13 @@ public class Order {
 
     public String status;
 
-    public String receivedDate;
-    public String processedDate;
-    public String shippedDate;
-    public String deliveredDate;
+    public Calendar receivedDate;
+    public Calendar processedDate;
+    public Calendar shippedDate;
+    public Calendar deliveredDate;
 
-    public double latitude;
-    public double longitude;
+    public Double latitude;
+    public Double longitude;
 }
+
+

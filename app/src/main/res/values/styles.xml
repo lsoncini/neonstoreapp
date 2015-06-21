@@ -12,4 +12,28 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ProductDetail">
+        <item name="android:layout_width">100sp</item>
+        <item name="android:layout_height">70sp</item>
+        <item name="android:layout_gravity">right</item>
+    </style>
+
+    <style name="OrderTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="OrderInfo">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
