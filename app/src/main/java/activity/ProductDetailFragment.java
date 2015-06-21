@@ -25,7 +25,7 @@ public class ProductDetailFragment extends NeonFragment {
 
     @Override
     public String getTitle() {
-        return "Producto";
+        return getResources().getString(R.string.title_product);
     }
 
     @Override

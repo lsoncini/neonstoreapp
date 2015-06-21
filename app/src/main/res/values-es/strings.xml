@@ -37,7 +37,7 @@
     <string name="title_home">Inicio</string>
     <string name="title_log_in">Iniciar Sesión</string>
     <string name="title_product">Producto</string>
-    <string name="title_result">Resultado</string>
+    <string name="title_result">Resultados</string>
     <string name="desc_list_item_icon">Item Icon</string>
 
     <!-- navigation drawer item icons -->

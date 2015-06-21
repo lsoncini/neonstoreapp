@@ -30,7 +30,7 @@ public class ProductGridFragment extends NeonFragment {
 
     @Override
     public String getTitle() {
-        return "Resultados";
+        return getResources().getString(R.string.title_result);
     }
 
 

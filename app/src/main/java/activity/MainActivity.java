@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.neon.neonstore.R;
 
 import activity.SidebarFragment.SidebarListener;
+import activity.NeonFragment.OnFragmentAttachedListener;
 import api.APIQuery;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -24,7 +25,7 @@ import model.Section;
 import view.ProductGrid.ProductGridListener;
 
 
-public class MainActivity extends ActionBarActivity implements SidebarListener, ProductGridListener {
+public class MainActivity extends ActionBarActivity implements SidebarListener, ProductGridListener, OnFragmentAttachedListener {
 
     @InjectView(R.id.toolbar)       Toolbar toolbar;
     @InjectView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -131,7 +132,10 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
             .commit()
         ;
 
-        getSupportActionBar().setTitle(fragment.getTitle());
         drawerLayout.closeDrawers();
+    }
+
+    public void onFragmentAttached(NeonFragment sender){
+        getSupportActionBar().setTitle(sender.getTitle());
     }
 }
