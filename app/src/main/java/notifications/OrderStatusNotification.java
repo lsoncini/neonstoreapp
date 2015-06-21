@@ -33,6 +33,18 @@ public class OrderStatusNotification {
             PendingIntent.FLAG_UPDATE_CURRENT
         );
 
+        int action;
+
+//        switch(order.status) {
+//            case Order.CREATED  : action = R.string.order_created; break;
+//            case Order.PROCESSED: action = R.string.order_processed; break;
+//            case Order.SHIPPED  : action = R.string.order_shipped; break;
+//            case Order.DELIVERED: action = R.string.order_delivered; break;
+//        }
+
+//        String title = context.getString(action);
+//        String text  = ;
+
         Notification notification = new NotificationCompat.Builder(context)
             .setSmallIcon(R.drawable.ic_cart)
             .setContentTitle("Orden #" + order.id)

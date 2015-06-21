@@ -5,7 +5,7 @@ import java.util.Date;
 public class Order extends Model {
     public static final String
         CREATED   = "1",
-        CONFIRMED = "2",
+        PROCESSED = "2",
         SHIPPED   = "3",
         DELIVERED = "4"
     ;

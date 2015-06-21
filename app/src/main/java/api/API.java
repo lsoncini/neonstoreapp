@@ -3,6 +3,7 @@ package api;
 import api.response.CategoryListResponse;
 import api.response.LoginResponse;
 import api.response.OrderListResponse;
+import api.response.OrderResponse;
 import api.response.ProductListResponse;
 import api.response.ProductResponse;
 import retrofit.Callback;
@@ -67,6 +68,9 @@ public interface API {
         @Query("username")             String username,
         @Query("authentication_token") String authenticationToken
     );
+
+    @GET("/Catalog.groovy?method=GetOrderById")
+    void getOrderById(@Query("id") int orderId, Callback<OrderResponse> cb);
 
     @GET("/Catalog.groovy?method=GetAllCategories")
     void getAllCategories(Callback<CategoryListResponse> cb);

@@ -13,6 +13,7 @@ import api.deserialize.ProductDeserializer;
 import api.response.APIError;
 import api.response.LoginResponse;
 import api.response.OrderListResponse;
+import api.response.OrderResponse;
 import api.response.ProductListResponse;
 import api.response.ProductResponse;
 import model.Category;
@@ -104,6 +105,10 @@ public class Store {
             throw new RuntimeException("Can't fetchOrders: not logged in");
 
         api.getAllOrders(session.account.username, session.authenticationToken, apiBack);
+    }
+
+    public void fetchOrder(int orderId, APIBack<OrderResponse> apiBack) {
+        api.getOrderById(orderId, apiBack);
     }
 
     public void login(String username, String password) {

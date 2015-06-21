@@ -112,8 +112,6 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         ;
 
         navTo(new ProductGridFragment().setQuery(query));
-
-
     }
 
     private final OnQueryTextListener searchListener = new OnQueryTextListener() {
