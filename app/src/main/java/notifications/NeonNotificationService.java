@@ -5,7 +5,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.os.SystemClock;
 
-import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 import api.response.OrderListResponse;
 import model.Order;
@@ -15,15 +16,13 @@ public class NeonNotificationService extends Service implements Runnable {
     private String username;
     private String authToken;
 
-    private Calendar lastCheck;
+    private HashMap<Integer, Integer> orderIdToTimehash;
 
     private boolean stopped = false;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        lastCheck = Calendar.getInstance();
-        lastCheck.set(1990, 1, 1); // TODO read this from storage
         start();
     }
 
@@ -64,7 +63,6 @@ public class NeonNotificationService extends Service implements Runnable {
         }
 
         System.out.println("Checking orders " + username + " : " + authToken);
-
         OrderListResponse res = Store.api.getAllOrders(currentUsername, currentAuthToken);
 
         synchronized (this) {
@@ -72,14 +70,29 @@ public class NeonNotificationService extends Service implements Runnable {
                 return;
 
             System.out.println("Has " + res.orders.size() + " orders");
-
-            for (Order order: res.orders) {
-                if (order.hasChangedSince(lastCheck))
-                    new OrderStatusNotification(order).show(getApplicationContext());
-            }
-
-            lastCheck = Calendar.getInstance();
+            processOrders(res.orders);
         }
+    }
+
+    private void processOrders(List<Order> orders) {
+        if (orderIdToTimehash == null) {
+            orderIdToTimehash = new HashMap<>();
+
+            for (Order o: orders)
+                orderIdToTimehash.put(o.id, o.timehash());
+
+        } else {
+            for (Order order: orders) {
+                Integer previousTimehash = orderIdToTimehash.get(order.id);
+
+                if (previousTimehash != null && order.timehash() == previousTimehash)
+                    continue;
+
+                orderIdToTimehash.put(order.id, order.timehash());
+                new OrderStatusNotification(order).show(getApplicationContext());
+            }
+        }
+
     }
 
     void start() {

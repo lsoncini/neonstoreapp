@@ -26,17 +26,12 @@ public class Order extends Model {
 
     List<OrderItem> items;
 
-    public boolean hasChangedSince(Calendar when) {
-        return (
-            isAfter(receivedDate, when) ||
-            isAfter(processedDate, when) ||
-            isAfter(shippedDate, when) ||
-            isAfter(deliveredDate, when)
-        );
-    }
-
-    private boolean isAfter(Calendar a, Calendar b) {
-        return a != null && a.after(b);
+    public int timehash() {
+        int result = receivedDate != null ? receivedDate.hashCode() : 0;
+        result = 31 * result + (processedDate != null ? processedDate.hashCode() : 0);
+        result = 31 * result + (shippedDate != null ? shippedDate.hashCode() : 0);
+        result = 31 * result + (deliveredDate != null ? deliveredDate.hashCode() : 0);
+        return result;
     }
 }
 
