@@ -13,13 +13,19 @@
 
     <string name="search_hint">Search</string>
     <string name="filter">Filter</string>
-    <string name="order">Order</string>
+    <string name="sort">Order</string>
 
     <string name="nav_item_home">Home</string>
     <string name="nav_item_categories">Categories</string>
     <string name="nav_item_cart">Shopping Cart</string>
     <string name="nav_item_favorites">Favorites</string>
     <string name="nav_item_help">Help</string>
+
+    <string name="order">Order</string>
+    <string name="order_created">Order created!</string>
+    <string name="order_processed">Order confirmed!</string>
+    <string name="order_shipped">Order shipped!</string>
+    <string name="order_delivered">Order delivered!</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">

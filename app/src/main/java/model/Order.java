@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class Order extends Model {
     public static final String
@@ -25,6 +26,8 @@ public class Order extends Model {
 
     public Double latitude;
     public Double longitude;
+
+    List<OrderItem> items;
 
     public boolean hasChangedSince(Calendar when) {
         return (
