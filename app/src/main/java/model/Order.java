@@ -1,6 +1,8 @@
 package model;
 
-public class Order {
+import java.util.Date;
+
+public class Order extends Model {
     public static final String
         CREATED   = "1",
         CONFIRMED = "2",
@@ -13,11 +15,24 @@ public class Order {
 
     public String status;
 
-    public String receivedDate;
-    public String processedDate;
-    public String shippedDate;
-    public String deliveredDate;
+    public Date receivedDate;
+    public Date processedDate;
+    public Date shippedDate;
+    public Date deliveredDate;
 
     public double latitude;
     public double longitude;
+
+    public boolean hasChangedSince(Date when) {
+        return (
+            isAfter(receivedDate, when) ||
+            isAfter(processedDate, when) ||
+            isAfter(shippedDate, when) ||
+            isAfter(deliveredDate, when)
+        );
+    }
+
+    private boolean isAfter(Date a, Date b) {
+        return a != null && a.getTime() > b.getTime();
+    }
 }

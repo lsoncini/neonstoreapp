@@ -1,4 +1,4 @@
-package api;
+package store;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,9 +6,13 @@ import com.google.gson.GsonBuilder;
 import java.util.Arrays;
 import java.util.List;
 
+import api.API;
+import api.APIBack;
+import api.APIQuery;
 import api.deserialize.ProductDeserializer;
 import api.response.APIError;
 import api.response.LoginResponse;
+import api.response.OrderListResponse;
 import api.response.ProductListResponse;
 import api.response.ProductResponse;
 import model.Category;
@@ -26,10 +30,13 @@ public class Store {
         return instance;
     }
 
-    private static API api;
+    public static API api;
+
+    private SessionListener listener;
 
     {
         Gson gson = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd HH:mm")
             .registerTypeAdapter(Product.class, new ProductDeserializer())
         .create();
 
@@ -92,20 +99,37 @@ public class Store {
         api.getProductById(productId, apiBack);
     }
 
-    public void login(String username, String password, final APIBack<LoginResponse> apiBack) {
+    public void fetchOrders(APIBack<OrderListResponse> apiBack) {
+        if (! isLoggedIn())
+            throw new RuntimeException("Can't fetchOrders: not logged in");
+
+        api.getAllOrders(session.account.username, session.authenticationToken, apiBack);
+    }
+
+    public void login(String username, String password) {
         api.login(username, password, new APIBack<LoginResponse>() {
             public void onSuccess(LoginResponse res) {
                 session = res.toSession();
-                apiBack.onSuccess(res);
+                if (listener != null) listener.onLogin(session);
+                System.out.println("LOGIN OK");
             }
 
             public void onError(APIError err) {
-                apiBack.onError(err);
+                System.out.println("LOGIN ERR " + err);
             }
         });
     }
 
     public void logout() {
         session = null;
+        listener.onLogout();
+    }
+
+    public boolean isLoggedIn() {
+        return session != null;
+    }
+
+    public void setSessionListener(SessionListener listener) {
+        this.listener = listener;
     }
 }

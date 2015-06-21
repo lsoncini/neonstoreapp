@@ -9,7 +9,7 @@ import com.neon.neonstore.R;
 
 import api.APIBack;
 import api.APIQuery;
-import api.Store;
+import store.Store;
 import api.response.APIError;
 import api.response.ProductListResponse;
 import butterknife.ButterKnife;

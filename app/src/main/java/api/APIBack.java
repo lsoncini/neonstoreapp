@@ -6,7 +6,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public abstract class APIBack<T extends APIResponse> implements Callback<T> {
+public class APIBack<T extends APIResponse> implements Callback<T> {
 
     public void onSuccess(T res) {}
     public void onError(APIError err) {}
