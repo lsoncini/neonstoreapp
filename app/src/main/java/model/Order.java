@@ -36,7 +36,7 @@ public class Order extends Model {
     }
 
     private boolean isAfter(Calendar a, Calendar b) {
-        return a != null && a.getTime().compareTo(b.getTime()) > 0;
+        return a != null && a.after(b);
     }
 }
 
