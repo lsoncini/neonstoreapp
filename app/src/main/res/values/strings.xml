@@ -12,6 +12,8 @@
     <string name="drawer_close">Close</string>
 
     <string name="search_hint">Search</string>
+    <string name="filter">Filter</string>
+    <string name="order">Order</string>
 
     <string name="nav_item_home">Home</string>
     <string name="nav_item_categories">Categories</string>
