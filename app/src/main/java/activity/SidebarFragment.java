@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.neon.neonstore.R;
 
 import adapter.NavigationDrawerAdapter;
-import api.Store;
+import store.Store;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;

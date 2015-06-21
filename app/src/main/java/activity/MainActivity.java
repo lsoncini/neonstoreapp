@@ -1,5 +1,6 @@
 package activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.MenuItemCompat;
@@ -15,16 +16,22 @@ import android.widget.Toast;
 import com.neon.neonstore.R;
 
 import activity.SidebarFragment.SidebarListener;
+import activity.NeonFragment.OnFragmentAttachedListener;
 import api.APIQuery;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Category;
 import model.Product;
 import model.Section;
+import model.Session;
+import notifications.NeonNotificationService;
+import store.SessionListener;
+import store.Store;
 import view.ProductGrid.ProductGridListener;
 
+public class MainActivity extends ActionBarActivity implements SidebarListener, ProductGridListener, SessionListener, OnFragmentAttachedListener {
 
-public class MainActivity extends ActionBarActivity implements SidebarListener, ProductGridListener {
+    private Store store = Store.getInstance();
 
     @InjectView(R.id.toolbar)       Toolbar toolbar;
     @InjectView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -51,9 +58,10 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         sidebar.setUp(R.id.fragment_navigation_drawer, drawerLayout, toolbar);
         sidebar.setListener(this);
 
+        store.setSessionListener(this);
+
         navTo(new HomeFragment());
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,8 +112,6 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         ;
 
         navTo(new ProductGridFragment().setQuery(query));
-
-
     }
 
     private final OnQueryTextListener searchListener = new OnQueryTextListener() {
@@ -131,7 +137,25 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
             .commit()
         ;
 
-        getSupportActionBar().setTitle(fragment.getTitle());
         drawerLayout.closeDrawers();
+    }
+
+    @Override
+    public void onLogin(Session session) {
+        Intent notificationService = new Intent(this, NeonNotificationService.class);
+
+        notificationService.putExtra("username", session.account.username);
+        notificationService.putExtra("authenticationToken", session.authenticationToken);
+
+        startService(notificationService);
+    }
+
+    @Override
+    public void onLogout() {
+        stopService(new Intent(this, NeonNotificationService.class));
+    }
+
+    public void onFragmentAttached(NeonFragment sender) {
+        getSupportActionBar().setTitle(sender.getTitle());
     }
 }

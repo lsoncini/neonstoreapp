@@ -4,6 +4,7 @@ import api.response.APIError;
 import api.response.ProductListResponse;
 import api.response.ProductResponse;
 import model.Product;
+import store.Store;
 
 public class APITest {
 

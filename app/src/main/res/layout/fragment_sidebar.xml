@@ -63,7 +63,7 @@
                 android:id="@+id/navHome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Inicio" />
+                android:text="@string/title_home" />
 
             <ListView
                 android:id="@+id/navSections"

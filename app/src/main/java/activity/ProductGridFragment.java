@@ -9,7 +9,7 @@ import com.neon.neonstore.R;
 
 import api.APIBack;
 import api.APIQuery;
-import api.Store;
+import store.Store;
 import api.response.APIError;
 import api.response.ProductListResponse;
 import butterknife.ButterKnife;
@@ -30,7 +30,7 @@ public class ProductGridFragment extends NeonFragment {
 
     @Override
     public String getTitle() {
-        return "Resultados";
+        return getResources().getString(R.string.title_result);
     }
 
 

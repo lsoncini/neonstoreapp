@@ -45,4 +45,7 @@
         <item>@drawable/ic_favorites</item>
         <item>@drawable/ic_help</item>
     </array>
+    <string name="title_log_in">Log in</string>
+    <string name="title_product">Product</string>
+    <string name="title_result">Result</string>
 </resources>

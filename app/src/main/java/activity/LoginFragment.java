@@ -1,5 +1,6 @@
 package activity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,13 +9,10 @@ import android.widget.TextView;
 
 import com.neon.neonstore.R;
 
-import api.APIBack;
-import api.Store;
-import api.response.APIError;
-import api.response.LoginResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import store.Store;
 
 public class LoginFragment extends NeonFragment {
 
@@ -25,7 +23,7 @@ public class LoginFragment extends NeonFragment {
 
     @Override
     public String getTitle() {
-        return "Iniciar sesión";
+        return getResources().getString(R.string.title_log_in);
     }
 
     @Override
@@ -39,18 +37,7 @@ public class LoginFragment extends NeonFragment {
     public void onLoginClick() {
         store.login(
             username.getText().toString(),
-            password.getText().toString(),
-
-            new APIBack<LoginResponse>() {
-                public void onSuccess(LoginResponse res) {
-                    System.out.println("LOGIN SUCCESSFUL");
-                    System.out.println(store.session.inspect());
-                }
-
-                public void onError(APIError err) {
-                    System.err.println("login error " + err);
-                }
-            }
+            password.getText().toString()
         );
     }
 }

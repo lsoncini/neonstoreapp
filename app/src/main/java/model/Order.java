@@ -1,12 +1,14 @@
 package model;
 
 import java.util.Calendar;
+
+import java.util.Calendar;
 import java.util.Date;
 
-public class Order {
+public class Order extends Model {
     public static final String
         CREATED   = "1",
-        CONFIRMED = "2",
+        PROCESSED = "2",
         SHIPPED   = "3",
         DELIVERED = "4"
     ;
@@ -23,6 +25,19 @@ public class Order {
 
     public Double latitude;
     public Double longitude;
+
+    public boolean hasChangedSince(Calendar when) {
+        return (
+            isAfter(receivedDate, when) ||
+            isAfter(processedDate, when) ||
+            isAfter(shippedDate, when) ||
+            isAfter(deliveredDate, when)
+        );
+    }
+
+    private boolean isAfter(Calendar a, Calendar b) {
+        return a != null && a.getTime().compareTo(b.getTime()) > 0;
+    }
 }
 
 

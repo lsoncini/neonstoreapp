@@ -2,6 +2,8 @@ package api;
 
 import api.response.CategoryListResponse;
 import api.response.LoginResponse;
+import api.response.OrderListResponse;
+import api.response.OrderResponse;
 import api.response.ProductListResponse;
 import api.response.ProductResponse;
 import retrofit.Callback;
@@ -12,6 +14,8 @@ public interface API {
 
     String root = "http://eiffel.itba.edu.ar/hci/service3";
 
+    @GET("/Catalog.groovy?method=GetProductById")
+    void getProductById(@Query("id") int productId, Callback<ProductResponse> cb);
 
     @GET("/Catalog.groovy?method=GetProductsByCategoryId")
     void getProductsByCategory(
@@ -45,9 +49,29 @@ public interface API {
         Callback<LoginResponse> cb
     );
 
+    @GET("/Account.groovy?method=SignIn")
+    LoginResponse login(
+        @Query("username") String username,
+        @Query("password") String password
+    );
+
+    @GET("/Order.groovy?method=GetAllOrders")
+    void getAllOrders(
+        @Query("username")             String username,
+        @Query("authentication_token") String authenticationToken,
+
+        Callback<OrderListResponse> cb
+    );
+
+    @GET("/Order.groovy?method=GetAllOrders")
+    OrderListResponse getAllOrders(
+        @Query("username")             String username,
+        @Query("authentication_token") String authenticationToken
+    );
+
+    @GET("/Catalog.groovy?method=GetOrderById")
+    void getOrderById(@Query("id") int orderId, Callback<OrderResponse> cb);
+
     @GET("/Catalog.groovy?method=GetAllCategories")
     void getAllCategories(Callback<CategoryListResponse> cb);
-
-    @GET("/Catalog.groovy?method=GetProductById")
-    void getProductById(@Query("id") int productId, Callback<ProductResponse> cb);
 }

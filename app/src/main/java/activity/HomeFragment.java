@@ -9,11 +9,11 @@ import com.neon.neonstore.R;
 
 import api.APIBack;
 import api.APIQuery;
-import api.Store;
 import api.response.APIError;
 import api.response.ProductListResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import store.Store;
 import view.ProductGrid;
 import view.ProductGrid.ProductGridListener;
 
