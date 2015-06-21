@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.neon.neonstore.R;
@@ -19,6 +21,9 @@ public class ProductDetailFragment extends NeonFragment {
     @InjectView(R.id.name)  TextView name;
     @InjectView(R.id.price) TextView price;
     @InjectView(R.id.image) ImageView image;
+    @InjectView(R.id.brand) TextView brand;
+    @InjectView(R.id.colors) Spinner colors;
+    @InjectView(R.id.sizes) Spinner sizes;
 
     public Product product;
 
@@ -52,6 +57,14 @@ public class ProductDetailFragment extends NeonFragment {
 
         name.setText(product.name);
         price.setText("$" + product.price);
+        brand.setText(product.brand);
+
+        String[] colorsStr = {"azul", "rojo", "verde"};
+        String[] sizesStr = {"S", "M", "L", "XL"};
+        ArrayAdapter<String> colorsAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.spinner_item, colorsStr);
+        colors.setAdapter(colorsAdapter);
+        ArrayAdapter<String> sizesAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.spinner_item, sizesStr);
+        sizes.setAdapter(sizesAdapter);
 
         Picasso.with(getActivity())
             .load(product.images[0])

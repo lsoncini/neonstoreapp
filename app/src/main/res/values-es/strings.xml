@@ -54,4 +54,7 @@
         <item>@drawable/ic_favorites</item>
         <item>@drawable/ic_help</item>
     </array>
+
+    <string name="title_colors">Colores</string>
+    <string name="add_to_cart">Añadir a Carrito</string>
 </resources>

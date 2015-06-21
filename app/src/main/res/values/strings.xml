@@ -54,4 +54,8 @@
     <string name="title_log_in">Log in</string>
     <string name="title_product">Product</string>
     <string name="title_result">Result</string>
+
+    <string name="title_colors">Colors</string>
+    <string name="add_to_cart">Add to Cart</string>
+
 </resources>
