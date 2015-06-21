@@ -33,22 +33,10 @@ public class OrderStatusNotification {
             PendingIntent.FLAG_UPDATE_CURRENT
         );
 
-        int action;
-
-//        switch(order.status) {
-//            case Order.CREATED  : action = R.string.order_created; break;
-//            case Order.PROCESSED: action = R.string.order_processed; break;
-//            case Order.SHIPPED  : action = R.string.order_shipped; break;
-//            case Order.DELIVERED: action = R.string.order_delivered; break;
-//        }
-
-//        String title = context.getString(action);
-//        String text  = ;
-
         Notification notification = new NotificationCompat.Builder(context)
             .setSmallIcon(R.drawable.ic_cart)
-            .setContentTitle("Orden #" + order.id)
-            .setContentText(order.inspect())
+            .setContentTitle(getTitle(context))
+            .setContentText(getText(context))
             .setContentIntent(pendingIntent)
         .build();
 
@@ -57,5 +45,20 @@ public class OrderStatusNotification {
         );
 
         nm.notify(order.id, notification);
+    }
+
+    private String getTitle(Context c) {
+        return c.getString(R.string.order) + " #" + order.id;
+    }
+
+    private String getText(Context c) {
+        switch(order.status) {
+            case Order.CREATED  : return c.getString(R.string.order_created);
+            case Order.PROCESSED: return c.getString(R.string.order_processed);
+            case Order.SHIPPED  : return c.getString(R.string.order_shipped);
+            case Order.DELIVERED: return c.getString(R.string.order_delivered);
+        }
+
+        return null;
     }
 }

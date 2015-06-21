@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Order extends Model {
     public static final String
@@ -22,6 +23,8 @@ public class Order extends Model {
 
     public double latitude;
     public double longitude;
+    
+    List<OrderItem> items;
 
     public boolean hasChangedSince(Date when) {
         return (
