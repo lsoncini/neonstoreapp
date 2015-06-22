@@ -27,6 +27,7 @@ public class ProductGridFragment extends NeonFragment {
     @InjectView(R.id.productGrid) ProductGrid productGrid;
     @InjectView(R.id.filter_button) Button filterButton;
     @InjectView(R.id.order_button) Button sortButton;
+    @InjectView(R.id.more_button) Button moreButton;
 
     // The items currently displayed in the grid were fetched using this query:
     APIQuery query;
@@ -46,6 +47,13 @@ public class ProductGridFragment extends NeonFragment {
         ButterKnife.inject(this, view);
 
         productGrid.setListener((ProductGridListener) getActivity());
+        moreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                query.pageSize=query.pageSize+8;
+                setQuery(query);
+            }
+        });
         sortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
