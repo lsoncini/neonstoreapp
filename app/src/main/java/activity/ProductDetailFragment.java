@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.neon.neonstore.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -83,7 +84,15 @@ public class ProductDetailFragment extends NeonFragment {
                 brand.setText(res.product.brand);
 
                 ArrayAdapter<String> colorsAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item, res.product.color);
-                colors.setAdapter(colorsAdapter);
+                if(colorsAdapter != null) {
+                    colors.setAdapter(colorsAdapter);
+                }
+
+                if(res.product.sizes == null){
+                    res.product.sizes = new ArrayList<String>();
+                    res.product.sizes.add(getResources().getString(R.string.text_only_size));
+                }
+
                 ArrayAdapter<String> sizesAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item, res.product.sizes);
                 sizes.setAdapter(sizesAdapter);
             }

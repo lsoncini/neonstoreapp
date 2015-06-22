@@ -43,7 +43,7 @@
     <string name="title_help">Help</string>
     <string name="title_categories">Categories</string>
     <string name="title_home">Home</string>
-    <string name="title_orders">Ordenes</string>
+    <string name="title_orders">Orders</string>
     <string name="desc_list_item_icon">Item Icon</string>
 
     <!-- navigation drawer item icons -->
@@ -63,8 +63,8 @@
     <string name="top_products_title">Top Products</string>
     <string name="title_account">Account</string>
 
-    <string name="sort_by_price_asc">By price (ascending)</string>
-    <string name="sort_by_price_desc">By price (descending)</string>
+    <string name="sort_by_price_asc">Lower price</string>
+    <string name="sort_by_price_desc">Higher price</string>
 
     <string-array name="sort_options">
         <item>@string/sort_by_price_asc</item>
@@ -73,4 +73,5 @@
 
     <string name="accept">Accept</string>
     <string name="cancel">Cancel</string>
+    <string name="text_only_size">Unique Size</string>
 </resources>

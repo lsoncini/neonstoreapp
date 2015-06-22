@@ -62,8 +62,8 @@
     <string name="top_products_title">Productos Destacados</string>
     <string name="title_account">Ver cuenta</string>
 
-    <string name="sort_by_price_asc">Por precio (ascendente)</string>
-    <string name="sort_by_price_desc">Por precio (descendente)</string>
+    <string name="sort_by_price_asc">Menor precio</string>
+    <string name="sort_by_price_desc">Mayor precio</string>
 
     <string-array name="sort_options">
         <item>@string/sort_by_price_asc</item>
@@ -72,4 +72,6 @@
 
     <string name="accept">Acceptar</string>
     <string name="cancel">Cancelar</string>
+    <string name="title_orders">Ordenes</string>
+    <string name="text_only_size">Talle único</string>
 </resources>
