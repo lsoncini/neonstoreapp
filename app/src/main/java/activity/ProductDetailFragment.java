@@ -12,12 +12,16 @@ import android.widget.TextView;
 import com.neon.neonstore.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
+import api.APIBack;
+import api.response.APIError;
+import api.response.ProductResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Product;
+import store.Store;
 
 public class ProductDetailFragment extends NeonFragment {
 
@@ -29,6 +33,8 @@ public class ProductDetailFragment extends NeonFragment {
     @InjectView(R.id.sizes) Spinner sizes;
 
     public Product product;
+    final Store store = Store.getInstance();
+    boolean productChanged;
 
 
     @Override
@@ -51,26 +57,42 @@ public class ProductDetailFragment extends NeonFragment {
 
     public ProductDetailFragment setProduct(Product product) {
         this.product = product;
+        productChanged = true;
         updateView();
         return this;
     }
 
     private void updateView() {
-        if (getView() == null) return;
+        if (getView() == null || !productChanged) return;
 
         if(product == null) return;
 
         name.setText(product.name);
         price.setText("$" + product.price);
         brand.setText(product.brand);
+        productChanged = false;
 
-        String[] colorsStr = {"Azul", "Rojo", "Verde"};
-        String[] sizesStr = {"S", "M", "L", "XL"};
 
-        ArrayAdapter<String> colorsAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.spinner_item, colorsStr);
-        colors.setAdapter(colorsAdapter);
-        ArrayAdapter<String> sizesAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.spinner_item, sizesStr);
-        sizes.setAdapter(sizesAdapter);
+        showSpinner();
+
+        store.fetchProduct(product.id,new APIBack<ProductResponse>(){
+            public void onSuccess(ProductResponse res) {
+                hideSpinner();
+                name.setText(res.product.name);
+                price.setText("$" + res.product.price);
+                brand.setText(res.product.brand);
+
+                ArrayAdapter<String> colorsAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item, res.product.color);
+                colors.setAdapter(colorsAdapter);
+                ArrayAdapter<String> sizesAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item, res.product.sizes);
+                sizes.setAdapter(sizesAdapter);
+            }
+
+            public void onError(APIError err) {
+                System.err.println(err);
+            }
+
+        });
 
         Picasso.with(getActivity())
             .load(product.images[0])

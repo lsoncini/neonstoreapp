@@ -24,7 +24,7 @@ public class Product extends Model {
         Adulto, Infantil, Bebe;
     }
 
-    public enum Color {
+    /*public enum Color {
         Azul,
         Beige,
         Blanco,
@@ -48,7 +48,7 @@ public class Product extends Model {
         Suela,
         Verde,
         Violeta;
-    }
+    }*/
 
 
     public int id;
@@ -58,7 +58,7 @@ public class Product extends Model {
 
     public Age age;
     public Gender gender;
-    public Color color;
+    public List<String> color;
     public List<String> sizes;
     public String brand;
     public String material;
