@@ -107,6 +107,9 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     }
 
     @Override
+    public void onSidebarOrders() { navTo(new OrderDetailFragment()); }
+
+    @Override
     public void onSidebarLogIn() { navTo(new LoginFragment());}
 
     @Override

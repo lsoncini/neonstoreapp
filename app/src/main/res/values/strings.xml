@@ -43,6 +43,7 @@
     <string name="title_help">Help</string>
     <string name="title_categories">Categories</string>
     <string name="title_home">Home</string>
+    <string name="title_orders">Ordenes</string>
     <string name="desc_list_item_icon">Item Icon</string>
 
     <!-- navigation drawer item icons -->

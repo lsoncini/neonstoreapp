@@ -1,6 +1,5 @@
 package activity;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,11 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Order;
 
-public class OrderDetailFragment extends Fragment{
+public class OrderDetailFragment extends NeonFragment{
+    @Override
+    public String getTitle() {
+        return "Order Details";
+    }
 
     @InjectView(R.id.addressName)
     TextView addressName;
@@ -36,7 +39,7 @@ public class OrderDetailFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_order_detail, container, false);
         ButterKnife.inject(this, view);
 
-        products.setAdapter();
+        products.setAdapter(null);
 
         return view;
     }
