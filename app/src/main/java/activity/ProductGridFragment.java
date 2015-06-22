@@ -14,7 +14,10 @@ import java.util.List;
 
 import api.APIBack;
 import api.APIQuery;
+import api.response.SubcategoryListResponse;
+import model.Category;
 import model.Product;
+import model.Subcategory;
 import store.Store;
 import api.response.APIError;
 import api.response.ProductListResponse;
@@ -28,8 +31,8 @@ public class ProductGridFragment extends NeonFragment {
 
     @InjectView(R.id.productGrid)
     ProductGrid productGrid;
-    @InjectView(R.id.filter_button)
-    Button filterButton;
+    @InjectView(R.id.subcategories_button)
+    Button subcategoriesButton;
     @InjectView(R.id.order_button) Button sortButton;
 
     // The items currently displayed in the grid were fetched using this query:
@@ -50,6 +53,7 @@ public class ProductGridFragment extends NeonFragment {
         ButterKnife.inject(this, view);
 
         productGrid.setListener((ProductGrid.ProductGridListener) getActivity());
+        subcategoriesButton.setEnabled(false);
         sortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,6 +135,72 @@ public class ProductGridFragment extends NeonFragment {
             }
 
         });
+
+        APIQuery subQuery = new APIQuery()
+                .whereCategory(query.category);
+
+        subQuery.filters = query.filters;
+
+        store.fetchSubcategories(subQuery, new APIBack<SubcategoryListResponse>() {
+            public void onSuccess(SubcategoryListResponse res) {
+                configureDialogForSubcategories(res.subcategories);
+
+            }
+
+            public void onError(APIError err) {
+                System.err.println(err);
+            }
+        });
+    }
+
+    private void configureDialogForSubcategories(final List<Subcategory> subcategories){
+        subcategoriesButton.setEnabled(true);
+
+        final CharSequence[] titles = new CharSequence[subcategories.size()+1];
+
+        int i = 0;
+
+        for(i=0; i<subcategories.size();i++){
+            titles[i] = subcategories.get(i).name;
+        }
+
+        titles[i] = getResources().getString(R.string.none);
+
+        subcategoriesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
+
+                // set title
+                alertDialogBuilder.setTitle(R.string.subcategories);
+
+                // set dialog message
+                alertDialogBuilder
+                        .setSingleChoiceItems(titles, sortIndex, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int index) {
+                                sortIndex = index;
+                            }
+                        })
+                        .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                if(sortIndex == subcategories.size())
+                                    query.subcategory = null;
+                                else query.subcategory = subcategories.get(sortIndex);
+                                setQuery(query);
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+            }
+        });
+
     }
 
     @Override

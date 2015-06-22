@@ -78,5 +78,7 @@
     <string name="age">Age</string>
     <string name="gender">Gender</string>
     <string name="material">Material</string>
+    <string name="subcategories">Subcategories</string>
+    <string name="none">None</string>
 
 </resources>
