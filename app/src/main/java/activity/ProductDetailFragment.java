@@ -113,4 +113,10 @@ public class ProductDetailFragment extends NeonFragment {
             .into(image)
         ;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setProduct(product);
+    }
 }
