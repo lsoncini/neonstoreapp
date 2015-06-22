@@ -188,9 +188,14 @@ public class ProductGridFragment extends NeonFragment {
                         .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                if(sortIndex == subcategories.size())
+                                if(sortIndex == subcategories.size()) {
                                     query.subcategory = null;
-                                else query.subcategory = subcategories.get(sortIndex);
+                                    subcategoriesButton.setText(getResources().getString(R.string.subcategories));
+                                }
+                                else {
+                                    query.subcategory = subcategories.get(sortIndex);
+                                    subcategoriesButton.setText(subcategories.get(sortIndex).name);
+                                }
                                 setQuery(query);
                                 dialog.cancel();
                             }
