@@ -58,5 +58,27 @@
     </array>
 
     <string name="title_colors">Colores</string>
+    <string name="title_sizes">Talles</string>
     <string name="add_to_cart">Añadir a Carrito</string>
+    <string name="top_products_title">Productos Destacados</string>
+    <string name="title_account">Ver ordenes</string>
+
+    <string name="sort_by_price_asc">Menor precio</string>
+    <string name="sort_by_price_desc">Mayor precio</string>
+
+    <string-array name="sort_options">
+        <item>@string/sort_by_price_asc</item>
+        <item>@string/sort_by_price_desc</item>
+    </string-array>
+
+    <string name="accept">Acceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="title_orders">Ordenes</string>
+    <string name="text_only_size">Talle único</string>
+
+    <string name="age">Edad</string>
+    <string name="gender">Género</string>
+    <string name="material">Material</string>
+    <string name="subcategories">Subcategorias</string>
+    <string name="none">Ninguna</string>
 </resources>

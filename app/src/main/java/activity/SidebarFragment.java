@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,6 +33,8 @@ public class SidebarFragment extends Fragment {
 
     public interface SidebarListener {
         void onSidebarHome();
+        void onSidebarOrders();
+        void onSidebarLogIn();
         void onSidebarCategory(Section section, Category category);
     }
 
@@ -39,6 +42,7 @@ public class SidebarFragment extends Fragment {
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private NavigationDrawerAdapter adapter;
+    private boolean wasOpened = false;
 
 
     @InjectView(R.id.navHome) Button  navHome;
@@ -49,7 +53,9 @@ public class SidebarFragment extends Fragment {
     @InjectView(R.id.navSectionMenu)  View     navSectionMenu;
     @InjectView(R.id.navSectionTitle) TextView navSectionTitle;
     @InjectView(R.id.navCategories)   ListView navCategories;
-
+    @InjectView(R.id.userName)        TextView usernameTextView;
+    @InjectView(R.id.profileImage)    ImageView profileImageView;
+    @InjectView(R.id.navLogInOrders)        Button    navLogInButton;
 
     private SidebarListener listener;
     private Section selectedSection;
@@ -114,6 +120,18 @@ public class SidebarFragment extends Fragment {
         if (listener != null) listener.onSidebarHome();
     }
 
+    @OnClick(R.id.navLogInOrders)
+    public void onNavLogIn() {
+        if (listener != null){
+            Store store = Store.getInstance();
+            boolean loggedIn = store.isLoggedIn();
+            if(loggedIn){
+                listener.onSidebarOrders();
+            } else{
+                listener.onSidebarLogIn();
+            }
+        }
+    }
 
     @OnItemClick(R.id.navSections)
     public void onNavSectionsItemClick(int position) {
@@ -127,6 +145,23 @@ public class SidebarFragment extends Fragment {
             listener.onSidebarCategory(selectedSection, store.getCategories().get(position));
 
         unselectSection();
+    }
+
+    public void updateSessionSection(){
+        Store store = Store.getInstance();
+        boolean loggedIn = store.isLoggedIn();
+
+        if(loggedIn){
+            profileImageView.setVisibility(View.VISIBLE);
+            usernameTextView.setVisibility(View.VISIBLE);
+            usernameTextView.setText(store.session.account.firstName);
+            navLogInButton.setText(getResources().getString(R.string.title_account));
+        } else {
+            navLogInButton.setText(getResources().getString(R.string.title_log_in));
+            profileImageView.setVisibility(View.GONE);
+            usernameTextView.setVisibility(View.GONE);
+        }
+
     }
 
 
@@ -149,6 +184,15 @@ public class SidebarFragment extends Fragment {
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
                 toolbar.setAlpha(1 - slideOffset / 2);
+
+                if(slideOffset==0){
+                    wasOpened = false;
+                } else {
+                    if (!wasOpened){
+                        wasOpened = true;
+                        updateSessionSection();
+                    }
+                }
             }
         };
 

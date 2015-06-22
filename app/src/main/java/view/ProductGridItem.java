@@ -18,6 +18,7 @@ public class ProductGridItem extends FrameLayout {
     @InjectView(R.id.name)  TextView name;
     @InjectView(R.id.price) TextView price;
     @InjectView(R.id.image) ImageView image;
+    @InjectView(R.id.brand) TextView brand;
 
     public ProductGridItem(Context context) {
         super(context);
@@ -42,6 +43,7 @@ public class ProductGridItem extends FrameLayout {
     void setProduct(Product product) {
         name.setText(product.name);
         price.setText("$" + product.price);
+        brand.setText(product.brand);
 
         Picasso.with(getContext())
             .load(product.images[0])

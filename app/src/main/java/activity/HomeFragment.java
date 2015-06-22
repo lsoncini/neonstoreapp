@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.neon.neonstore.R;
 
@@ -13,6 +14,7 @@ import api.response.APIError;
 import api.response.ProductListResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import model.Category;
 import store.Store;
 import view.ProductGrid;
 import view.ProductGrid.ProductGridListener;
@@ -32,7 +34,7 @@ public class HomeFragment extends NeonFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        ScrollView view = (ScrollView)inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.inject(this, view);
 
         productGrid.setListener((ProductGridListener) getActivity());
@@ -40,7 +42,8 @@ public class HomeFragment extends NeonFragment {
         APIQuery query = new APIQuery()
 //            .whereCategory(store.getCategories().get(0))
 //            .whereColor(Color.Blanco)
-            .whereName("Pancha")
+            .whereCategory(store.getCategories().get(1))
+                .whereNew()
             .page(1, 8)
             .orderBy(APIQuery.BY_NAME, APIQuery.ASC)
         ;
@@ -54,16 +57,18 @@ public class HomeFragment extends NeonFragment {
             }
 
             public void onError(APIError err) {
+                hideSpinner();
                 System.err.println(err);
             }
         });
-
         return view;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        productGrid.setListener(null);
+        if(productGrid != null) {
+            productGrid.setListener(null);
+        }
     }
 }

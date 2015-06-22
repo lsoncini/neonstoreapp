@@ -1,6 +1,8 @@
 package activity;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.MenuItemCompat;
@@ -62,6 +64,13 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     }
 
     @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_main);
+
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         navTo(new HomeFragment());
@@ -88,10 +97,10 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
             return true;
 
         } else
-        if (id == R.id.action_login) {
+        /*if (id == R.id.action_login) {
             navTo(new LoginFragment());
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -107,12 +116,18 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     }
 
     @Override
+    public void onSidebarOrders() { navTo(new OrderDetailFragment()); }
+
+    @Override
+    public void onSidebarLogIn() { navTo(new LoginFragment());}
+
+    @Override
     public void onSidebarCategory(Section section, Category category) {
         APIQuery query = new APIQuery()
             .whereCategory(category)
             .whereAge(section.age)
             .whereGender(section.gender)
-            .page(1, 8)
+            .page(1, 50)
             .orderBy(APIQuery.BY_NAME, APIQuery.ASC)
         ;
 
@@ -163,7 +178,13 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     }
 
     public void onFragmentAttached(NeonFragment sender) {
-        getSupportActionBar().setTitle(sender.getTitle());
+
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+
+        if(actionBar != null){
+            actionBar.setTitle(sender.getTitle());
+        }
+
     }
 
     private void resetSearchHint() {

@@ -6,8 +6,9 @@ import java.util.List;
 import model.Category;
 import model.Product;
 import model.Product.Age;
-import model.Product.Color;
+//import model.Product.Color;
 import model.Product.Gender;
+import model.Subcategory;
 
 public class APIQuery {
 
@@ -23,6 +24,7 @@ public class APIQuery {
     ;
 
     public Category category;
+    public Subcategory subcategory;
     public String name;
     public List<APIFilter> filters = new LinkedList<>();
 
@@ -48,9 +50,9 @@ public class APIQuery {
         return this;
     }
 
-    public APIQuery whereColor(Color color) {
+    /*public APIQuery whereColor(Color color) {
         return where(Product.COLOR, color.name());
-    }
+    }*/
 
     public APIQuery whereAge(Age age) {
         return where(Product.AGE, age.name());

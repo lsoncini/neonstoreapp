@@ -1,21 +1,26 @@
 package activity;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.neon.neonstore.R;
 
+import adapter.OrderAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Order;
 
-public class OrderDetailFragment extends Fragment{
-    /*
+public class OrderDetailFragment extends NeonFragment{
+    @Override
+    public String getTitle() {
+        return "Order Details";
+    }
+
     @InjectView(R.id.addressName)
     TextView addressName;
 
@@ -35,8 +40,8 @@ public class OrderDetailFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order_detail, container, false);
         ButterKnife.inject(this, view);
-
-        products.setAdapter();
+        ListAdapter adapter = new OrderAdapter();
+        //ListAdapter adapter = new ArrayAdapter<Order>(getActivity().getApplicationContext(), R.layout.fragment_product_detail_in_order, products);
 
         return view;
     }
@@ -60,5 +65,5 @@ public class OrderDetailFragment extends Fragment{
         status.setText(status.toString());
         receivedDate.setText(order.receivedDate.toString());
         shippedDate.setText(order.shippedDate.toString());
-    } */
+    }
 }

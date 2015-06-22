@@ -19,8 +19,8 @@
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/filter_button"
-            android:text="@string/filter"
+            android:id="@+id/subcategories_button"
+            android:text="@string/subcategories"
             android:textSize="15sp"
             android:layout_width="match_parent"
             android:padding="5dp"
@@ -31,7 +31,7 @@
     <view.ProductGrid
         android:id="@+id/productGrid"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
 
 </LinearLayout>

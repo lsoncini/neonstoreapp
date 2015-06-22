@@ -13,7 +13,7 @@ import java.util.Calendar;
 import api.response.APIAttribute;
 import model.Product;
 import model.Product.Age;
-import model.Product.Color;
+//import model.Product.Color;
 import model.Product.Gender;
 
 public class ProductDeserializer implements JsonDeserializer<Product> {
@@ -39,7 +39,7 @@ public class ProductDeserializer implements JsonDeserializer<Product> {
                 product.brand = value;
             else
             if (name.equals("Color"))
-                product.color = Color.valueOf(value);
+                product.color = attr.values;//Color.valueOf(value);
             else
             if (name.startsWith("Material"))
                 product.material = value;
