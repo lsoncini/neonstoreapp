@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.neon.neonstore.R;
 
@@ -32,7 +33,7 @@ public class HomeFragment extends NeonFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        ScrollView view = (ScrollView)inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.inject(this, view);
 
         productGrid.setListener((ProductGridListener) getActivity());
@@ -57,13 +58,14 @@ public class HomeFragment extends NeonFragment {
                 System.err.println(err);
             }
         });
-
         return view;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        productGrid.setListener(null);
+        if(productGrid != null) {
+            productGrid.setListener(null);
+        }
     }
 }
