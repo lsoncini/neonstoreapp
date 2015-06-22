@@ -66,13 +66,14 @@ public class ProductGridFragment extends NeonFragment {
                             public void onClick(DialogInterface dialog,int id) {
                                 // if this button is clicked, close
                                 // current activity
-                                dialog.cancel();
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                // if this button is clicked, just close
-                                // the dialog box and do nothing
+                                switch (sortIndex){
+                                    case 0: query.orderBy(APIQuery.BY_PRICE, APIQuery.ASC);
+                                            break;
+                                    case 1: query.orderBy(APIQuery.BY_PRICE, APIQuery.DESC);
+                                            break;
+                                    default:break;
+                                }
+                                setQuery(query);
                                 dialog.cancel();
                             }
                         });
