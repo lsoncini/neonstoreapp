@@ -61,7 +61,7 @@
     <string name="title_colors">Colors</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="top_products_title">Top Products</string>
-    <string name="title_account">Account</string>
+    <string name="title_account">View orders</string>
 
     <string name="sort_by_price_asc">Lower price</string>
     <string name="sort_by_price_desc">Higher price</string>

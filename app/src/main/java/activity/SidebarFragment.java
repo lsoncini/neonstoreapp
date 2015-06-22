@@ -55,7 +55,7 @@ public class SidebarFragment extends Fragment {
     @InjectView(R.id.navCategories)   ListView navCategories;
     @InjectView(R.id.userName)        TextView usernameTextView;
     @InjectView(R.id.profileImage)    ImageView profileImageView;
-    @InjectView(R.id.navLogIn)        Button    navLogInButton;
+    @InjectView(R.id.navLogInOrders)        Button    navLogInButton;
 
     private SidebarListener listener;
     private Section selectedSection;
@@ -120,13 +120,18 @@ public class SidebarFragment extends Fragment {
         if (listener != null) listener.onSidebarHome();
     }
 
-    @OnClick(R.id.navOrders)
-    public void onNavOrders() {
-        if (listener != null) listener.onSidebarOrders();
+    @OnClick(R.id.navLogInOrders)
+    public void onNavLogIn() {
+        if (listener != null){
+            Store store = Store.getInstance();
+            boolean loggedIn = store.isLoggedIn();
+            if(loggedIn){
+                listener.onSidebarOrders();
+            } else{
+                listener.onSidebarLogIn();
+            }
+        }
     }
-
-    @OnClick(R.id.navLogIn)
-    public void onNavLogIn() { if (listener != null) listener.onSidebarLogIn(); }
 
     @OnItemClick(R.id.navSections)
     public void onNavSectionsItemClick(int position) {

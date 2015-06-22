@@ -60,7 +60,7 @@
     <string name="title_colors">Colores</string>
     <string name="add_to_cart">Añadir a Carrito</string>
     <string name="top_products_title">Productos Destacados</string>
-    <string name="title_account">Ver cuenta</string>
+    <string name="title_account">Ver ordenes</string>
 
     <string name="sort_by_price_asc">Menor precio</string>
     <string name="sort_by_price_desc">Mayor precio</string>

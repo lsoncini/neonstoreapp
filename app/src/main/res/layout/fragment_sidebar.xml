@@ -46,7 +46,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/navLogIn"
+            android:id="@+id/navLogInOrders"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title_log_in"
@@ -76,12 +76,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_home" />
-
-            <Button
-                android:id="@+id/navOrders"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/title_orders" />
 
             <ListView
                 android:id="@+id/navSections"
