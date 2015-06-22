@@ -53,7 +53,6 @@ public class ProductGridFragment extends NeonFragment {
         ButterKnife.inject(this, view);
 
         productGrid.setListener((ProductGrid.ProductGridListener) getActivity());
-        subcategoriesButton.setEnabled(false);
         sortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
