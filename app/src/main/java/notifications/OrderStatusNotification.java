@@ -52,13 +52,6 @@ public class OrderStatusNotification {
     }
 
     private String getText(Context c) {
-        switch(order.status) {
-            case Order.CREATED  : return c.getString(R.string.order_created);
-            case Order.PROCESSED: return c.getString(R.string.order_processed);
-            case Order.SHIPPED  : return c.getString(R.string.order_shipped);
-            case Order.DELIVERED: return c.getString(R.string.order_delivered);
-        }
-
-        return null;
+        return c.getString(R.string.order) + " " + order.getStatusString(c);
     }
 }

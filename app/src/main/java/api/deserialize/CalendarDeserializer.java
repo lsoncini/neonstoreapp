@@ -9,12 +9,11 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class CalendarDeserializer implements JsonDeserializer<Calendar> {
+import api.API;
 
-    static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+public class CalendarDeserializer implements JsonDeserializer<Calendar> {
 
     @Override
     public Calendar deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -25,7 +24,7 @@ public class CalendarDeserializer implements JsonDeserializer<Calendar> {
         Calendar cal = Calendar.getInstance();
 
         try {
-            cal.setTime(dateFormat.parse(json.getAsString()));
+            cal.setTime(API.dateFormat.parse(json.getAsString()));
 
         } catch (ParseException e) {
             throw new RuntimeException(e);

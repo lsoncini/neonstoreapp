@@ -1,5 +1,7 @@
 package api;
 
+import java.text.SimpleDateFormat;
+
 import api.response.CategoryListResponse;
 import api.response.LoginResponse;
 import api.response.OrderListResponse;
@@ -12,6 +14,8 @@ import retrofit.http.GET;
 import retrofit.http.Query;
 
 public interface API {
+
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     String root = "http://eiffel.itba.edu.ar/hci/service3";
 
@@ -90,8 +94,14 @@ public interface API {
         @Query("authentication_token") String authenticationToken
     );
 
-    @GET("/Catalog.groovy?method=GetOrderById")
-    void getOrderById(@Query("id") int orderId, Callback<OrderResponse> cb);
+    @GET("/Order.groovy?method=GetOrderById")
+    void getOrderById(
+        @Query("id")                   int orderId,
+        @Query("username")             String username,
+        @Query("authentication_token") String authenticationToken,
+
+        Callback<OrderResponse> cb
+    );
 
     @GET("/Catalog.groovy?method=GetAllCategories")
     void getAllCategories(Callback<CategoryListResponse> cb);

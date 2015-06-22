@@ -24,10 +24,10 @@
     <string name="nav_item_help">Help</string>
 
     <string name="order">Order</string>
-    <string name="order_created">Order created!</string>
-    <string name="order_processed">Order confirmed!</string>
-    <string name="order_shipped">Order shipped!</string>
-    <string name="order_delivered">Order delivered!</string>
+    <string name="order_created">created</string>
+    <string name="order_processed">confirmed</string>
+    <string name="order_shipped">shipped</string>
+    <string name="order_delivered">delivered</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">

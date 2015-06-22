@@ -1,5 +1,9 @@
 package model;
 
+import android.content.Context;
+
+import com.neon.neonstore.R;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -24,19 +28,34 @@ public class Order extends Model {
     public Double latitude;
     public Double longitude;
 
-    List<OrderItem> items;
+    public List<OrderItem> items;
 
-    public boolean hasChangedSince(Calendar when) {
-        return (
-            isAfter(receivedDate, when) ||
-            isAfter(processedDate, when) ||
-            isAfter(shippedDate, when) ||
-            isAfter(deliveredDate, when)
-        );
+    public int timehash() {
+        int result = receivedDate != null ? receivedDate.hashCode() : 0;
+        result = 31 * result + (processedDate != null ? processedDate.hashCode() : 0);
+        result = 31 * result + (shippedDate != null ? shippedDate.hashCode() : 0);
+        result = 31 * result + (deliveredDate != null ? deliveredDate.hashCode() : 0);
+        return result;
     }
 
-    private boolean isAfter(Calendar a, Calendar b) {
-        return a != null && a.after(b);
+    public Integer total() {
+        int total = 0;
+
+        for (OrderItem item: items)
+            total += item.price * item.quantity;
+
+        return total;
+    }
+
+    public String getStatusString(Context c) {
+        switch(status) {
+            case Order.CREATED  : return c.getString(R.string.order_created);
+            case Order.PROCESSED: return c.getString(R.string.order_processed);
+            case Order.SHIPPED  : return c.getString(R.string.order_shipped);
+            case Order.DELIVERED: return c.getString(R.string.order_delivered);
+        }
+
+        return null;
     }
 }
 

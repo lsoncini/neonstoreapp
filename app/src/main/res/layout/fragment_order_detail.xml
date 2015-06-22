@@ -1,73 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="20sp"
-        android:background="#ffffff" >
+        android:orientation="horizontal">
 
         <TextView
-            android:text="Orden efectuada:"
-            style="@style/OrderTitle"/>
+            android:layout_width="wrap_content"
+            android:text="@string/order"
+            android:layout_marginRight="3sp"
+            style="@style/OrderTitle" />
 
         <TextView
-            android:id="@+id/receivedDate"
-            style="@style/OrderInfo"
-            />
-
-        <TextView
-            android:text="Estado de la orden:"
-            style="@style/OrderTitle"/>
+            android:id="@+id/orderId"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="3sp"
+            style="@style/OrderTitle" />
 
         <TextView
             android:id="@+id/status"
-            style="@style/OrderInfo"
-            />
-
-        <TextView
-            android:text="Numero de orden: "
-            style="@style/OrderTitle"/>
-
-        <TextView
-            android:id="@+id/id"
-            style="@style/OrderInfo"
-            />
-
-        <TextView
-            android:text="Direccion de envio: "
-            style="@style/OrderTitle"/>
-
-        <TextView
-            android:id="@+id/addressName"
-            style="@style/OrderInfo"
-            />
-
-        <TextView
-            android:text="Total de la orden: "
-            style="@style/OrderTitle"/>
-
-        <TextView
-            android:text="Fecha de envio: "
-            style="@style/OrderTitle"/>
-
-        <TextView
-            android:id="@+id/shippedDate"
             style="@style/OrderInfo" />
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
+    <TextView
+        android:text="Fecha:"
+        style="@style/OrderTitle" />
 
-        // listview de los fragment: product_detail_in_order.xml
-    </ListView>
+    <TextView
+        android:id="@+id/receivedDate"
+        style="@style/OrderInfo" />
+
+    <TextView
+        android:text="Direccion de envio: "
+        style="@style/OrderTitle"/>
+
+    <TextView
+        android:id="@+id/addressName"
+        style="@style/OrderInfo"
+        />
+
+    <TextView
+        android:id="@+id/total"
+        android:text="Total de la orden: "
+        style="@style/OrderTitle" />
+
+    <LinearLayout
+        android:id="@+id/shippedDateGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="Fecha de envío"
+            style="@style/OrderTitle" />
+
+        <TextView
+            android:id="@+id/shippedDate"
+            style="@style/OrderInfo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/deliveredDateGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="Fecha de recepción"
+            style="@style/OrderTitle" />
+
+        <TextView
+            android:id="@+id/deliveredDate"
+            style="@style/OrderInfo" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

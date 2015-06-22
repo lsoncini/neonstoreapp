@@ -135,7 +135,10 @@ public class Store {
     }
 
     public void fetchOrder(int orderId, APIBack<OrderResponse> apiBack) {
-        api.getOrderById(orderId, apiBack);
+        if (! isLoggedIn())
+            throw new RuntimeException("Can't fetchOrder: not logged in");
+
+        api.getOrderById(orderId, session.account.username, session.authenticationToken, apiBack);
     }
 
     public void login(String username, String password) {
