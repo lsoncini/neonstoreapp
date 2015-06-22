@@ -17,8 +17,7 @@
 
         <TextView
             android:id="@+id/receivedDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/OrderInfo"
             />
 
         <TextView
@@ -27,8 +26,7 @@
 
         <TextView
             android:id="@+id/status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/OrderInfo"
             />
 
         <TextView
@@ -36,8 +34,8 @@
             style="@style/OrderTitle"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/id"
+            style="@style/OrderInfo"
             />
 
         <TextView
@@ -46,8 +44,7 @@
 
         <TextView
             android:id="@+id/addressName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/OrderInfo"
             />
 
         <TextView
@@ -56,19 +53,17 @@
 
         <TextView
             android:text="Fecha de envio: "
-            android:layout_width="120sp"
-            android:layout_height="120sp" />
+            style="@style/OrderTitle"/>
 
         <TextView
             android:id="@+id/shippedDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            style="@style/OrderInfo" />
 
     </LinearLayout>
 
     <ListView
-        android:layout_width="match_parent"
+        android:id="@+id/list"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
 

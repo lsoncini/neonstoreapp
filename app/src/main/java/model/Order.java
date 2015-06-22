@@ -11,7 +11,7 @@ public class Order extends Model {
         DELIVERED = "4"
     ;
 
-    public int id;
+    public Integer id;
     public Address address;
 
     public String status;

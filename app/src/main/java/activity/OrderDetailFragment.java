@@ -15,7 +15,7 @@ import butterknife.InjectView;
 import model.Order;
 
 public class OrderDetailFragment extends Fragment{
-    /*
+
     @InjectView(R.id.addressName)
     TextView addressName;
 
@@ -60,5 +60,5 @@ public class OrderDetailFragment extends Fragment{
         status.setText(status.toString());
         receivedDate.setText(order.receivedDate.toString());
         shippedDate.setText(order.shippedDate.toString());
-    } */
+    }
 }
