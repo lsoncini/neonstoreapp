@@ -57,6 +57,7 @@ public class HomeFragment extends NeonFragment {
             }
 
             public void onError(APIError err) {
+                hideSpinner();
                 System.err.println(err);
             }
         });
