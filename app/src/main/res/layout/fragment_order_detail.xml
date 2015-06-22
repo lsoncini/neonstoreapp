@@ -67,8 +67,7 @@
         android:layout_height="wrap_content"
         >
 
-
-
+        // listview de los fragment: product_detail_in_order.xml
     </ListView>
 
 </LinearLayout>

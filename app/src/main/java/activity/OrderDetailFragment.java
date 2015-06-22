@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.neon.neonstore.R;
 
+import adapter.OrderAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Order;
@@ -40,8 +40,8 @@ public class OrderDetailFragment extends NeonFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order_detail, container, false);
         ButterKnife.inject(this, view);
-        // this is incomplete
-        //ListAdapter adapter = new ArrayAdapter<Order>(getActivity().getApplicationContext(), R.layout.product_detail_order, products);
+        ListAdapter adapter = new OrderAdapter();
+        //ListAdapter adapter = new ArrayAdapter<Order>(getActivity().getApplicationContext(), R.layout.fragment_product_detail_in_order, products);
 
         return view;
     }
