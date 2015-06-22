@@ -141,16 +141,19 @@ public class ProductGridFragment extends NeonFragment {
 
         subQuery.filters = query.filters;
 
-        store.fetchSubcategories(subQuery, new APIBack<SubcategoryListResponse>() {
-            public void onSuccess(SubcategoryListResponse res) {
-                configureDialogForSubcategories(res.subcategories);
+        if(query.category != null) {
 
-            }
+            store.fetchSubcategories(subQuery, new APIBack<SubcategoryListResponse>() {
+                public void onSuccess(SubcategoryListResponse res) {
+                    configureDialogForSubcategories(res.subcategories);
 
-            public void onError(APIError err) {
-                System.err.println(err);
-            }
-        });
+                }
+
+                public void onError(APIError err) {
+                    System.err.println(err);
+                }
+            });
+        }
     }
 
     private void configureDialogForSubcategories(final List<Subcategory> subcategories){
