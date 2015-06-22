@@ -24,8 +24,10 @@ public class ProductGridFragment extends NeonFragment {
 
     final Store store = Store.getInstance();
 
-    @InjectView(R.id.productGrid) ProductGrid productGrid;
-    @InjectView(R.id.filter_button) Button filterButton;
+    @InjectView(R.id.productGrid)
+    ProductGrid productGrid;
+    @InjectView(R.id.filter_button)
+    Button filterButton;
     @InjectView(R.id.order_button) Button sortButton;
     @InjectView(R.id.more_button) Button moreButton;
 
@@ -46,7 +48,7 @@ public class ProductGridFragment extends NeonFragment {
         View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
         ButterKnife.inject(this, view);
 
-        productGrid.setListener((ProductGridListener) getActivity());
+        productGrid.setListener((ProductGrid.ProductGridListener) getActivity());
         moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,7 +97,7 @@ public class ProductGridFragment extends NeonFragment {
                 // show it
                 alertDialog.show();
             }
-            });
+        });
 
         return view;
     }
@@ -130,6 +132,7 @@ public class ProductGridFragment extends NeonFragment {
             }
 
             public void onError(APIError err) {
+                hideSpinner();
                 System.err.println(err);
             }
 
