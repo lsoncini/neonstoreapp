@@ -52,7 +52,9 @@
             android:text="@string/title_log_in"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:background="#ff840010"
+            android:textColor="#ffffffff" />
 
     </RelativeLayout>
 
