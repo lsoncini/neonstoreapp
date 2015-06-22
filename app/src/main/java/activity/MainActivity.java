@@ -127,7 +127,7 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
             .whereCategory(category)
             .whereAge(section.age)
             .whereGender(section.gender)
-            .page(1, 8)
+            .page(1, 50)
             .orderBy(APIQuery.BY_NAME, APIQuery.ASC)
         ;
 

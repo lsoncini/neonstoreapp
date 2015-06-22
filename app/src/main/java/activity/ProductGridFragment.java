@@ -10,15 +10,17 @@ import android.widget.Button;
 
 import com.neon.neonstore.R;
 
+import java.util.List;
+
 import api.APIBack;
 import api.APIQuery;
+import model.Product;
 import store.Store;
 import api.response.APIError;
 import api.response.ProductListResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import view.ProductGrid;
-import view.ProductGrid.ProductGridListener;
 
 public class ProductGridFragment extends NeonFragment {
 
@@ -29,7 +31,6 @@ public class ProductGridFragment extends NeonFragment {
     @InjectView(R.id.filter_button)
     Button filterButton;
     @InjectView(R.id.order_button) Button sortButton;
-    @InjectView(R.id.more_button) Button moreButton;
 
     // The items currently displayed in the grid were fetched using this query:
     APIQuery query;
@@ -49,13 +50,6 @@ public class ProductGridFragment extends NeonFragment {
         ButterKnife.inject(this, view);
 
         productGrid.setListener((ProductGrid.ProductGridListener) getActivity());
-        moreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                query.pageSize=query.pageSize+8;
-                setQuery(query);
-            }
-        });
         sortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -31,20 +31,7 @@
     <view.ProductGrid
         android:id="@+id/productGrid"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-
-    <Button
-        android:id="@+id/more_button"
-        android:text="@string/more_results"
-        android:textSize="15sp"
-        android:layout_width="wrap_content"
-        android:padding="5dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/counter_bg"
-        android:textColor="#ffffff"
-        android:layout_gravity="center"
-        android:textStyle="bold"/>
+        android:layout_height="wrap_content"/>
 
 
 </LinearLayout>
