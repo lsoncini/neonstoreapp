@@ -60,4 +60,5 @@
     <string name="title_colors">Colors</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="top_products_title">Top Products</string>
+    <string name="title_account">Account</string>
 </resources>
