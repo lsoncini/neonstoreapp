@@ -1,9 +1,12 @@
 package activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.neon.neonstore.R;
 
@@ -22,10 +25,13 @@ public class ProductGridFragment extends NeonFragment {
     final Store store = Store.getInstance();
 
     @InjectView(R.id.productGrid) ProductGrid productGrid;
+    @InjectView(R.id.filter_button) Button filterButton;
+    @InjectView(R.id.order_button) Button sortButton;
 
     // The items currently displayed in the grid were fetched using this query:
     APIQuery query;
     boolean queryChanged;
+    int sortIndex=0;
 
 
     @Override
@@ -40,6 +46,44 @@ public class ProductGridFragment extends NeonFragment {
         ButterKnife.inject(this, view);
 
         productGrid.setListener((ProductGridListener) getActivity());
+        sortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
+
+                // set title
+                alertDialogBuilder.setTitle(R.string.sort);
+
+                // set dialog message
+                alertDialogBuilder
+                        .setSingleChoiceItems(R.array.sort_options,sortIndex,new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int index) {
+                              sortIndex= index;
+                            }
+                        })
+                        .setPositiveButton(R.string.accept,new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, close
+                                // current activity
+                                dialog.cancel();
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+            }
+            });
 
         return view;
     }

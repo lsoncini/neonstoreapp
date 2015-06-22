@@ -62,4 +62,14 @@
     <string name="top_products_title">Productos Destacados</string>
     <string name="title_account">Ver cuenta</string>
 
+    <string name="sort_by_price_asc">Por precio (ascendente)</string>
+    <string name="sort_by_price_desc">Por precio (descendente)</string>
+
+    <string-array name="sort_options">
+        <item>@string/sort_by_price_asc</item>
+        <item>@string/sort_by_price_desc</item>
+    </string-array>
+
+    <string name="accept">Acceptar</string>
+    <string name="cancel">Cancelar</string>
 </resources>

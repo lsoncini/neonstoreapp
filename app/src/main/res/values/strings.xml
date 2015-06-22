@@ -62,4 +62,15 @@
     <string name="add_to_cart">Add to Cart</string>
     <string name="top_products_title">Top Products</string>
     <string name="title_account">Account</string>
+
+    <string name="sort_by_price_asc">By price (ascending)</string>
+    <string name="sort_by_price_desc">By price (descending)</string>
+
+    <string-array name="sort_options">
+        <item>@string/sort_by_price_asc</item>
+        <item>@string/sort_by_price_desc</item>
+    </string-array>
+
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
 </resources>
