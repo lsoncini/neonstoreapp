@@ -58,6 +58,8 @@ public class ProductDetailFragment extends NeonFragment {
     private void updateView() {
         if (getView() == null) return;
 
+        if(product == null) return;
+
         name.setText(product.name);
         price.setText("$" + product.price);
         brand.setText(product.brand);

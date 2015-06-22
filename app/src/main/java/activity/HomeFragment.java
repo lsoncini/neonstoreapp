@@ -64,6 +64,8 @@ public class HomeFragment extends NeonFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        productGrid.setListener(null);
+        if(productGrid != null) {
+            productGrid.setListener(null);
+        }
     }
 }
