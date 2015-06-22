@@ -1,6 +1,5 @@
 package activity;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -17,9 +16,11 @@ import android.widget.Toast;
 
 import com.neon.neonstore.R;
 
-import activity.SidebarFragment.SidebarListener;
 import activity.NeonFragment.OnFragmentAttachedListener;
+import activity.SidebarFragment.SidebarListener;
+import api.APIBack;
 import api.APIQuery;
+import api.response.OrderResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Category;
@@ -74,6 +75,8 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     protected void onStart() {
         super.onStart();
         navTo(new HomeFragment());
+
+//        store.login("neontest", "neontest");
     }
 
     @Override
@@ -169,7 +172,14 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         notificationService.putExtra("username", session.account.username);
         notificationService.putExtra("authenticationToken", session.authenticationToken);
 
-        startService(notificationService);
+//        startService(notificationService);
+
+        store.fetchOrder(2379, new APIBack<OrderResponse>() {
+            @Override
+            public void onSuccess(OrderResponse res) {
+                navTo(new OrderDetailFragment().setOrder(res.order));
+            }
+        });
     }
 
     @Override

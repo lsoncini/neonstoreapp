@@ -92,7 +92,6 @@ public class NeonNotificationService extends Service implements Runnable {
                 new OrderStatusNotification(order).show(getApplicationContext());
             }
         }
-
     }
 
     void start() {

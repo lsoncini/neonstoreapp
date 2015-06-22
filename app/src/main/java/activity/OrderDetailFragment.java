@@ -1,48 +1,59 @@
 package activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.neon.neonstore.R;
 
-import adapter.OrderAdapter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import api.APIBack;
+import api.response.OrderResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Order;
+import model.OrderItem;
+import store.Store;
+import view.OrderItemListItem;
 
-public class OrderDetailFragment extends NeonFragment{
-    @Override
+public class OrderDetailFragment extends NeonFragment {
+
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    Store store = Store.getInstance();
+
     public String getTitle() {
         return "Order Details";
     }
 
-    @InjectView(R.id.addressName)
-    TextView addressName;
+    @InjectView(R.id.orderId)      TextView orderId;
+    @InjectView(R.id.addressName)  TextView addressName;
+    @InjectView(R.id.status)       TextView status;
+    @InjectView(R.id.total)        TextView total;
+    @InjectView(R.id.receivedDate) TextView receivedDate;
 
-    @InjectView(R.id.status)
-    TextView status;
+    @InjectView(R.id.shippedDateGroup) ViewGroup shippedDateGroup;
+    @InjectView(R.id.shippedDate)      TextView  shippedDate;
 
-    @InjectView(R.id.receivedDate)
-    TextView receivedDate;
+    @InjectView(R.id.deliveredDateGroup) ViewGroup deliveredDateGroup;
+    @InjectView(R.id.deliveredDate)      TextView  deliveredDate;
 
-    @InjectView(R.id.shippedDate)
-    TextView shippedDate;
+    @InjectView(R.id.items) ListView items;
 
     public Order order;
-    public ListView products;
+    public ListView productList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order_detail, container, false);
         ButterKnife.inject(this, view);
-        ListAdapter adapter = new OrderAdapter();
-        //ListAdapter adapter = new ArrayAdapter<Order>(getActivity().getApplicationContext(), R.layout.fragment_product_detail_in_order, products);
-
         return view;
     }
 
@@ -54,16 +65,71 @@ public class OrderDetailFragment extends NeonFragment{
 
     public OrderDetailFragment setOrder(Order order) {
         this.order = order;
+
+        order.shippedDate = Calendar.getInstance();
+        order.shippedDate.set(1996, 5, 10);
+        order.deliveredDate = Calendar.getInstance();
+        order.deliveredDate.set(1944, 2, 10);
+
         updateView();
         return this;
     }
 
     private void updateView() {
         if (getView() == null) return;
+        showSpinner();
 
-        addressName.setText(addressName.toString());
-        status.setText(status.toString());
-        receivedDate.setText(order.receivedDate.toString());
-        shippedDate.setText(order.shippedDate.toString());
+        store.fetchOrder(order.id, new APIBack<OrderResponse>() {
+            @Override
+            public void onSuccess(OrderResponse res) {
+                loadFullOrder(res.order);
+                hideSpinner();
+            }
+        });
+    }
+
+    private void loadFullOrder(Order order) {
+        this.order = order;
+        System.out.println(order.inspect());
+
+        orderId.setText("#" + order.id);
+        addressName.setText(order.address.name);
+        status.setText(order.getStatusString(getActivity()));
+
+        receivedDate.setText(dateFormat.format(order.receivedDate.getTime()));
+
+        if (order.shippedDate != null) {
+            shippedDateGroup.setVisibility(View.VISIBLE);
+            shippedDate.setText(dateFormat.format(order.shippedDate.getTime()));
+        } else
+            shippedDateGroup.setVisibility(View.GONE);
+
+        if (order.deliveredDate != null) {
+            deliveredDateGroup.setVisibility(View.VISIBLE);
+            deliveredDate.setText(dateFormat.format(order.deliveredDate.getTime()));
+        } else
+            deliveredDateGroup.setVisibility(View.GONE);
+
+        total.setText("$" + order.total());
+        items.setAdapter(new OrderItemAdapter(getActivity()));
+    }
+
+    public static class OrderItemAdapter extends ArrayAdapter<OrderItem> {
+
+        public OrderItemAdapter(Context context) {
+            super(context, 0);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            OrderItemListItem view = (convertView != null) ?
+                (OrderItemListItem) convertView :
+                new OrderItemListItem(getContext())
+                ;
+
+            view.setOrderItem(getItem(position));
+
+            return view;
+        }
     }
 }

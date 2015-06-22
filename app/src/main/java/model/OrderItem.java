@@ -1,9 +1,16 @@
 package model;
 
 public class OrderItem {
-    int id;
-    Product product;
 
-    int quantity;
-    int price;
+    public static class OrderItemProduct {
+        public int id;
+        public String name;
+        public String imageUrl;
+    }
+
+    public int id;
+
+    public OrderItemProduct product;
+    public int quantity;
+    public int price;
 }
