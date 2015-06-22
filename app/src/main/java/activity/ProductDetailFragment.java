@@ -13,8 +13,6 @@ import com.neon.neonstore.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import api.APIBack;
 import api.response.APIError;
@@ -30,8 +28,12 @@ public class ProductDetailFragment extends NeonFragment {
     @InjectView(R.id.price) TextView price;
     @InjectView(R.id.image) ImageView image;
     @InjectView(R.id.brand) TextView brand;
+    @InjectView(R.id.age) TextView age;
+    @InjectView(R.id.gender) TextView gender;
+    @InjectView(R.id.material) TextView material;
     @InjectView(R.id.colors) Spinner colors;
     @InjectView(R.id.sizes) Spinner sizes;
+
 
     public Product product;
     final Store store = Store.getInstance();
@@ -82,6 +84,9 @@ public class ProductDetailFragment extends NeonFragment {
                 name.setText(res.product.name);
                 price.setText("$" + res.product.price);
                 brand.setText(res.product.brand);
+                age.setText(getString(R.string.age) + ": " + res.product.age.name());
+                gender.setText(getString(R.string.gender) + ": " + res.product.gender.name());
+                material.setText(getString(R.string.material) + ": " + res.product.material);
 
                 ArrayAdapter<String> colorsAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item, res.product.color);
                 if(colorsAdapter != null) {

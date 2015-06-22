@@ -98,6 +98,38 @@
 
             </LinearLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/item_bg"
+                android:padding="10dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/age"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_alignParentTop="true"/>
+
+                <TextView
+                    android:id="@+id/gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_below="@id/age"/>
+
+                <TextView
+                    android:id="@+id/material"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_below="@id/gender"
+                    android:layout_alignParentBottom="true"/>
+
+            </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

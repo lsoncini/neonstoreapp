@@ -75,4 +75,7 @@
     <string name="title_orders">Ordenes</string>
     <string name="text_only_size">Talle único</string>
 
+    <string name="age">Edad</string>
+    <string name="gender">Género</string>
+    <string name="material">Material</string>
 </resources>
