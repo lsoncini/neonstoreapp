@@ -14,6 +14,7 @@ import api.response.APIError;
 import api.response.ProductListResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import model.Category;
 import store.Store;
 import view.ProductGrid;
 import view.ProductGrid.ProductGridListener;
@@ -41,7 +42,8 @@ public class HomeFragment extends NeonFragment {
         APIQuery query = new APIQuery()
 //            .whereCategory(store.getCategories().get(0))
 //            .whereColor(Color.Blanco)
-            .whereName("Pancha")
+            .whereCategory(store.getCategories().get(1))
+                .whereNew()
             .page(1, 8)
             .orderBy(APIQuery.BY_NAME, APIQuery.ASC)
         ;

@@ -56,22 +56,25 @@ public class ProductGridFragment extends NeonFragment {
 
                 // set dialog message
                 alertDialogBuilder
-                        .setSingleChoiceItems(R.array.sort_options,sortIndex,new DialogInterface.OnClickListener() {
+                        .setSingleChoiceItems(R.array.sort_options, sortIndex, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int index) {
-                              sortIndex= index;
+                                sortIndex = index;
                             }
                         })
-                        .setPositiveButton(R.string.accept,new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
+                        .setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
                                 // if this button is clicked, close
                                 // current activity
-                                switch (sortIndex){
-                                    case 0: query.orderBy(APIQuery.BY_PRICE, APIQuery.ASC);
-                                            break;
-                                    case 1: query.orderBy(APIQuery.BY_PRICE, APIQuery.DESC);
-                                            break;
-                                    default:break;
+                                switch (sortIndex) {
+                                    case 0:
+                                        query.orderBy(APIQuery.BY_PRICE, APIQuery.ASC);
+                                        break;
+                                    case 1:
+                                        query.orderBy(APIQuery.BY_PRICE, APIQuery.DESC);
+                                        break;
+                                    default:
+                                        break;
                                 }
                                 setQuery(query);
                                 dialog.cancel();
@@ -123,5 +126,11 @@ public class ProductGridFragment extends NeonFragment {
             }
 
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setQuery(query);
     }
 }
