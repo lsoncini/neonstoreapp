@@ -50,6 +50,8 @@ public class ProductGrid extends FrameLayout {
         addView(inflate(getContext(), R.layout.product_grid, null));
         ButterKnife.inject(this);
 
+        grid.setFocusable(false);
+
         grid.setAdapter(adapter = new ProductAdapter(getContext()));
         grid.setOnItemClickListener(onGridItemClick);
     }

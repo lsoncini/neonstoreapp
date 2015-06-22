@@ -36,7 +36,7 @@
         <view.ProductGrid
             android:id="@+id/productGrid"
             android:layout_width="match_parent"
-            android:layout_height="850dp"/>
+            android:layout_height="940dp"/>
 
     </LinearLayout>
 </ScrollView>
