@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.neon.neonstore.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Product;
@@ -59,8 +62,9 @@ public class ProductDetailFragment extends NeonFragment {
         price.setText("$" + product.price);
         brand.setText(product.brand);
 
-        String[] colorsStr = {"azul", "rojo", "verde"};
+        String[] colorsStr = {"Azul", "Rojo", "Verde"};
         String[] sizesStr = {"S", "M", "L", "XL"};
+
         ArrayAdapter<String> colorsAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.spinner_item, colorsStr);
         colors.setAdapter(colorsAdapter);
         ArrayAdapter<String> sizesAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.spinner_item, sizesStr);

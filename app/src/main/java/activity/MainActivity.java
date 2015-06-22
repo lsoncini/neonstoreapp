@@ -107,6 +107,9 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     }
 
     @Override
+    public void onSidebarLogIn() { navTo(new LoginFragment());}
+
+    @Override
     public void onSidebarCategory(Section section, Category category) {
         APIQuery query = new APIQuery()
             .whereCategory(category)

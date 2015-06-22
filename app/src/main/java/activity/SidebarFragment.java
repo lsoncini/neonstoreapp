@@ -32,6 +32,7 @@ public class SidebarFragment extends Fragment {
 
     public interface SidebarListener {
         void onSidebarHome();
+        void onSidebarLogIn();
         void onSidebarCategory(Section section, Category category);
     }
 
@@ -113,6 +114,9 @@ public class SidebarFragment extends Fragment {
     public void onNavHome() {
         if (listener != null) listener.onSidebarHome();
     }
+
+    @OnClick(R.id.navLogIn)
+    public void onNavLogIn() { if (listener != null) listener.onSidebarLogIn(); }
 
 
     @OnItemClick(R.id.navSections)
