@@ -97,10 +97,10 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
             return true;
 
         } else
-        if (id == R.id.action_login) {
+        /*if (id == R.id.action_login) {
             navTo(new LoginFragment());
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
