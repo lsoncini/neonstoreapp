@@ -58,6 +58,7 @@
     </array>
 
     <string name="title_colors">Colores</string>
+    <string name="title_sizes">Talles</string>
     <string name="add_to_cart">Añadir a Carrito</string>
     <string name="top_products_title">Productos Destacados</string>
     <string name="title_account">Ver ordenes</string>
@@ -78,4 +79,6 @@
     <string name="age">Edad</string>
     <string name="gender">Género</string>
     <string name="material">Material</string>
+    <string name="subcategories">Subcategorias</string>
+    <string name="none">Ninguna</string>
 </resources>

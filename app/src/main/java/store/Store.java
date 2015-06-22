@@ -18,6 +18,7 @@ import api.response.OrderListResponse;
 import api.response.OrderResponse;
 import api.response.ProductListResponse;
 import api.response.ProductResponse;
+import api.response.SubcategoryListResponse;
 import model.Category;
 import model.Product;
 import model.Session;
@@ -69,6 +70,9 @@ public class Store {
         if (query.name != null)
             searchProductsByName(query, apiBack);
         else
+        if (query.subcategory != null)
+            searchProductsBySubcategory(query,apiBack);
+        else
         if (query.category != null)
             searchProductsByCategory(query, apiBack);
         else
@@ -89,13 +93,33 @@ public class Store {
 
     private void searchProductsByCategory(APIQuery query, APIBack<ProductListResponse> apiBack) {
         api.getProductsByCategory(
-            query.category.id,
-            query.page,
-            query.pageSize,
-            query.sortKey,
-            query.sortOrder,
-            new Gson().toJson(query.filters),
-            apiBack
+                query.category.id,
+                query.page,
+                query.pageSize,
+                query.sortKey,
+                query.sortOrder,
+                new Gson().toJson(query.filters),
+                apiBack
+        );
+    }
+
+    private void searchProductsBySubcategory(APIQuery query, APIBack<ProductListResponse> apiBack){
+        api.getProductsBySubcategory(
+                query.subcategory.id,
+                query.page,
+                query.pageSize,
+                query.sortKey,
+                query.sortOrder,
+                new Gson().toJson(query.filters),
+                apiBack
+        );
+    }
+
+    public void fetchSubcategories(APIQuery query, APIBack<SubcategoryListResponse> apiBack){
+        api.getSubCategoriesByCategory(
+                query.category.id,
+                new Gson().toJson(query.filters),
+                apiBack
         );
     }
 

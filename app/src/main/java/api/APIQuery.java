@@ -8,6 +8,7 @@ import model.Product;
 import model.Product.Age;
 //import model.Product.Color;
 import model.Product.Gender;
+import model.Subcategory;
 
 public class APIQuery {
 
@@ -23,6 +24,7 @@ public class APIQuery {
     ;
 
     public Category category;
+    public Subcategory subcategory;
     public String name;
     public List<APIFilter> filters = new LinkedList<>();
 
