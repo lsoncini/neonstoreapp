@@ -39,10 +39,8 @@ public class OrderDetailFragment extends NeonFragment {
     @InjectView(R.id.total)        TextView total;
     @InjectView(R.id.receivedDate) TextView receivedDate;
 
-    @InjectView(R.id.shippedDateGroup) ViewGroup shippedDateGroup;
     @InjectView(R.id.shippedDate)      TextView  shippedDate;
 
-    @InjectView(R.id.deliveredDateGroup) ViewGroup deliveredDateGroup;
     @InjectView(R.id.deliveredDate)      TextView  deliveredDate;
 
     @InjectView(R.id.items) ListView items;
@@ -102,16 +100,11 @@ public class OrderDetailFragment extends NeonFragment {
         receivedDate.setText(dateFormat.format(order.receivedDate.getTime()));
 
         if (order.shippedDate != null) {
-            shippedDateGroup.setVisibility(View.VISIBLE);
             shippedDate.setText(dateFormat.format(order.shippedDate.getTime()));
-        } else
-            shippedDateGroup.setVisibility(View.GONE);
-
+        }
         if (order.deliveredDate != null) {
-            deliveredDateGroup.setVisibility(View.VISIBLE);
             deliveredDate.setText(dateFormat.format(order.deliveredDate.getTime()));
-        } else
-            deliveredDateGroup.setVisibility(View.GONE);
+        }
 
         total.setText("$" + order.total());
 
@@ -128,9 +121,9 @@ public class OrderDetailFragment extends NeonFragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             OrderItemListItem view = (convertView != null) ?
-                (OrderItemListItem) convertView :
-                new OrderItemListItem(getContext())
-                ;
+                    (OrderItemListItem) convertView :
+                    new OrderItemListItem(getContext())
+                    ;
 
             view.setOrderItem(getItem(position));
 

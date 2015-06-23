@@ -14,11 +14,9 @@ import com.neon.neonstore.R;
 
 import java.util.List;
 
-import adapter.OrderAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Order;
-import model.Product;
 
 public class OrderList extends FrameLayout{
     public interface OrderListListener {

@@ -1,5 +1,6 @@
 package activity;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,7 +79,7 @@ public class ProductDetailFragment extends NeonFragment {
 
         showSpinner();
 
-        store.fetchProduct(product.id,new APIBack<ProductResponse>(){
+        store.fetchProduct(product.id, new APIBack<ProductResponse>() {
             public void onSuccess(ProductResponse res) {
                 hideSpinner();
                 name.setText(res.product.name);
@@ -89,11 +90,11 @@ public class ProductDetailFragment extends NeonFragment {
                 material.setText(getString(R.string.material) + ": " + res.product.material);
 
                 ArrayAdapter<String> colorsAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item, res.product.color);
-                if(colorsAdapter != null) {
+                if (colorsAdapter != null) {
                     colors.setAdapter(colorsAdapter);
                 }
 
-                if(res.product.sizes == null){
+                if (res.product.sizes == null) {
                     res.product.sizes = new ArrayList<String>();
                     res.product.sizes.add(getResources().getString(R.string.text_only_size));
                 }
