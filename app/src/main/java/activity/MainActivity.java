@@ -18,9 +18,7 @@ import com.neon.neonstore.R;
 
 import activity.NeonFragment.OnFragmentAttachedListener;
 import activity.SidebarFragment.SidebarListener;
-import api.APIBack;
 import api.APIQuery;
-import api.response.OrderResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Category;
@@ -45,6 +43,11 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     private SearchView searchView;
     private SidebarFragment sidebar;
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,25 +59,27 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        sidebar = (SidebarFragment) getSupportFragmentManager()
-            .findFragmentById(R.id.fragment_navigation_drawer)
-        ;
-
-        sidebar.setUp(R.id.fragment_navigation_drawer, drawerLayout, toolbar);
-        sidebar.setListener(this);
-
+        sidebar = new SidebarFragment();
+        getSupportFragmentManager().beginTransaction()
+            .replace(R.id.sidebarFrame, sidebar)
+        .commit();
+//
         store.setSessionListener(this);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_home);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        sidebar.setUp(drawerLayout, toolbar);
+        sidebar.setListener(this);
+
         navTo(new HomeFragment());
     }
 
@@ -84,8 +89,6 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
 
         // We may be resuming after a notification was clicked:
         int orderId = getIntent().getIntExtra(OrderStatusNotification.ORDER_ID, -1);
-
-        System.out.println("Intent with order ID " + orderId);
 
         if (orderId != -1)
             navTo(new OrderDetailFragment().setOrder(new Order(orderId)));
@@ -131,7 +134,8 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     }
 
     @Override
-    public void onSidebarOrders() { navTo(new OrderDetailFragment()); }
+    public void onSidebarOrders() {
+        navTo(new OrderDetailFragment()); }
 
     @Override
     public void onSidebarLogIn() { navTo(new LoginFragment());}
@@ -143,8 +147,7 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
             .whereAge(section.age)
             .whereGender(section.gender)
             .page(1, 50)
-            .orderBy(APIQuery.BY_NAME, APIQuery.ASC)
-        ;
+            .orderBy(APIQuery.BY_NAME, APIQuery.ASC);
 
         navTo(new ProductGridFragment().setQuery(query));
         setSearchHint(getString(R.string.search_in_hint) + " " + category.name);
@@ -185,13 +188,6 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         notificationService.putExtra("authenticationToken", session.authenticationToken);
 
         startService(notificationService);
-
-        store.fetchOrder(2379, new APIBack<OrderResponse>() {
-            @Override
-            public void onSuccess(OrderResponse res) {
-                navTo(new OrderDetailFragment().setOrder(res.order));
-            }
-        });
     }
 
     @Override
@@ -221,5 +217,15 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     private void setSearchHint(String hint) {
         if (searchView != null)
             searchView.setQueryHint(hint);
+    }
+
+    @Override
+    public void onBackPressed() {
+        System.out.println("BACK PRESSED WITH " + getSupportFragmentManager().getBackStackEntryCount());
+        if (sidebar.isOpen())
+            sidebar.close();
+        else
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1)
+            super.onBackPressed();
     }
 }

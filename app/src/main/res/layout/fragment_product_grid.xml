@@ -28,10 +28,26 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
-    <view.ProductGrid
-        android:id="@+id/productGrid"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+
+        <view.ProductGrid
+            android:id="@+id/productGrid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_view"
+            android:id="@+id/emptyViewText"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
 
 
 </LinearLayout>
