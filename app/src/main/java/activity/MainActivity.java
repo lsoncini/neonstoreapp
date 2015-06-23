@@ -33,7 +33,7 @@ import store.Store;
 import view.OrderList;
 import view.ProductGrid.ProductGridListener;
 
-public class MainActivity extends ActionBarActivity implements SidebarListener, OrderList.OrderListListener, ProductGridListener, SessionListener, OnFragmentAttachedListener {
+public class MainActivity extends ActionBarActivity implements SidebarListener, ProductGridListener, SessionListener, OnFragmentAttachedListener {
 
     private Store store = Store.getInstance();
 
@@ -60,13 +60,11 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        sidebar = (SidebarFragment) getSupportFragmentManager()
-            .findFragmentById(R.id.fragment_navigation_drawer)
-        ;
-
-        sidebar.setUp(R.id.fragment_navigation_drawer, drawerLayout, toolbar);
-        sidebar.setListener(this);
-
+        sidebar = new SidebarFragment();
+        getSupportFragmentManager().beginTransaction()
+            .replace(R.id.sidebarFrame, sidebar)
+        .commit();
+//
         store.setSessionListener(this);
     }
 
@@ -79,6 +77,10 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     @Override
     protected void onStart() {
         super.onStart();
+
+        sidebar.setUp(drawerLayout, toolbar);
+        sidebar.setListener(this);
+
         navTo(new HomeFragment());
     }
 
@@ -88,8 +90,6 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
 
         // We may be resuming after a notification was clicked:
         int orderId = getIntent().getIntExtra(OrderStatusNotification.ORDER_ID, -1);
-
-        System.out.println("Intent with order ID " + orderId);
 
         if (orderId != -1)
             navTo(new OrderDetailFragment().setOrder(new Order(orderId)));
@@ -220,7 +220,12 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
             searchView.setQueryHint(hint);
     }
 
-    @Override
-    public void onOrderSelected(Order order) {
-        navTo(new OrderDetailFragment().setOrder(order));    }
+    public void onBackPressed() {
+        System.out.println("BACK PRESSED WITH " + getSupportFragmentManager().getBackStackEntryCount());
+        if (sidebar.isOpen())
+            sidebar.close();
+        else
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1)
+            super.onBackPressed();
+    }
 }

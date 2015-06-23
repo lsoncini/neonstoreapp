@@ -2,6 +2,7 @@ package activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -16,14 +17,13 @@ import android.widget.TextView;
 
 import com.neon.neonstore.R;
 
-import adapter.NavigationDrawerAdapter;
-import store.Store;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import model.Category;
 import model.Section;
+import store.Store;
 
 public class SidebarFragment extends Fragment {
 
@@ -41,7 +41,6 @@ public class SidebarFragment extends Fragment {
 
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
-    private NavigationDrawerAdapter adapter;
     private boolean wasOpened = false;
 
 
@@ -85,6 +84,11 @@ public class SidebarFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mDrawerToggle.syncState();
+    }
 
     public void setListener(SidebarListener listener) {
         this.listener = listener;
@@ -165,7 +169,7 @@ public class SidebarFragment extends Fragment {
     }
 
 
-    public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
+    public void setUp(DrawerLayout drawerLayout, final Toolbar toolbar) {
         mDrawerLayout = drawerLayout;
         mDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
             @Override
@@ -197,14 +201,16 @@ public class SidebarFragment extends Fragment {
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mDrawerToggle.syncState();
-            }
-        });
-
     }
+
+    public boolean isOpen() {
+        return mDrawerLayout.isDrawerOpen(GravityCompat.START);
+    }
+
+    public void close() {
+        mDrawerLayout.closeDrawers();
+    }
+
 //    public static class CategoryAdapter extends ArrayAdapter<Category> {
 //
 //        public CategoryAdapter(Context context) {
