@@ -59,13 +59,11 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        sidebar = (SidebarFragment) getSupportFragmentManager()
-            .findFragmentById(R.id.fragment_navigation_drawer)
-        ;
-
-        sidebar.setUp(R.id.fragment_navigation_drawer, drawerLayout, toolbar);
-        sidebar.setListener(this);
-
+        sidebar = new SidebarFragment();
+        getSupportFragmentManager().beginTransaction()
+            .replace(R.id.sidebarFrame, sidebar)
+        .commit();
+//
         store.setSessionListener(this);
     }
 
@@ -78,6 +76,10 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     @Override
     protected void onStart() {
         super.onStart();
+
+        sidebar.setUp(drawerLayout, toolbar);
+        sidebar.setListener(this);
+
         navTo(new HomeFragment());
     }
 
@@ -87,8 +89,6 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
 
         // We may be resuming after a notification was clicked:
         int orderId = getIntent().getIntExtra(OrderStatusNotification.ORDER_ID, -1);
-
-        System.out.println("Intent with order ID " + orderId);
 
         if (orderId != -1)
             navTo(new OrderDetailFragment().setOrder(new Order(orderId)));
