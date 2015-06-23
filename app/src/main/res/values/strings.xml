@@ -82,4 +82,11 @@
     <string name="subcategories">Subcategories</string>
     <string name="none">None</string>
 
+    <string name="order_id">Order number:</string>
+    <string name="order_status">Status:</string>
+    <string name="order_address">Address:</string>
+    <string name="order_received_date">Received date:</string>
+    <string name="order_process_date">Process date:</string>
+    <string name="order_total">Total:</string>
+
 </resources>
