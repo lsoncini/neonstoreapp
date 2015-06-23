@@ -12,7 +12,6 @@ import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.neon.neonstore.R;
 
@@ -104,23 +103,6 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         resetSearchHint();
 
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            Toast.makeText(getApplicationContext(), "Settings action is selected!", Toast.LENGTH_SHORT).show();
-            return true;
-
-        } else
-        /*if (id == R.id.action_login) {
-            navTo(new LoginFragment());
-            return true;
-        }*/
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
