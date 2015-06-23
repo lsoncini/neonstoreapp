@@ -81,4 +81,11 @@
     <string name="material">Material</string>
     <string name="subcategories">Subcategorias</string>
     <string name="none">Ninguna</string>
+
+    <string name="order_id">Número de pedido:</string>
+    <string name="order_status">Estado:</string>
+    <string name="order_address">Dirección:</string>
+    <string name="order_received_date">Fecha de entrega:</string>
+    <string name="order_process_date">Fecha de creación:</string>
+    <string name="order_total">Total:</string>
 </resources>
