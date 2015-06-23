@@ -14,6 +14,7 @@ import com.neon.neonstore.R;
 import java.text.SimpleDateFormat;
 
 import api.APIBack;
+import api.response.APIError;
 import api.response.OrderResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -80,6 +81,11 @@ public class OrderDetailFragment extends NeonFragment {
             @Override
             public void onSuccess(OrderResponse res) {
                 loadFullOrder(res.order);
+                hideSpinner();
+            }
+
+            @Override
+            public void onError(APIError err) {
                 hideSpinner();
             }
         });

@@ -7,9 +7,7 @@ import android.view.ViewGroup;
 
 import com.neon.neonstore.R;
 
-
 import api.APIBack;
-import api.APIQuery;
 import api.response.APIError;
 import api.response.OrderListResponse;
 import butterknife.ButterKnife;
@@ -24,14 +22,10 @@ public class OrderListFragment extends NeonFragment {
     @InjectView(R.id.orderList)
     OrderList orderList;
 
-    // The items currently displayed in the grid were fetched using this query:
-    boolean ordersChanged;
-
     @Override
     public String getTitle() {
         return getResources().getString(R.string.title_orders);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,28 +37,12 @@ public class OrderListFragment extends NeonFragment {
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        updateView();
-    }
-
-    public OrderListFragment setOrders() {
-        ordersChanged = true;
-        updateView();
-        return this;
-    }
-
     public void updateView() {
-        if (getView() == null || !ordersChanged) return;
-
-        orderList.clear();
-        ordersChanged = false;
+        if (getView() == null) return;
 
         showSpinner();
 
         store.fetchOrders(new APIBack<OrderListResponse>() {
-
             public void onSuccess(OrderListResponse res) {
                 hideSpinner();
                 orderList.setOrders(res.orders);
@@ -81,7 +59,6 @@ public class OrderListFragment extends NeonFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ordersChanged = true;
         updateView();
     }
 }
