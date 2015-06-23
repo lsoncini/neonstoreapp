@@ -18,9 +18,7 @@ import com.neon.neonstore.R;
 
 import activity.NeonFragment.OnFragmentAttachedListener;
 import activity.SidebarFragment.SidebarListener;
-import api.APIBack;
 import api.APIQuery;
-import api.response.OrderResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Category;
@@ -45,6 +43,11 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     private SearchView searchView;
     private SidebarFragment sidebar;
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +134,8 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     }
 
     @Override
-    public void onSidebarOrders() { navTo(new OrderDetailFragment()); }
+    public void onSidebarOrders() {
+        navTo(new OrderDetailFragment()); }
 
     @Override
     public void onSidebarLogIn() { navTo(new LoginFragment());}
@@ -143,8 +147,7 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
             .whereAge(section.age)
             .whereGender(section.gender)
             .page(1, 50)
-            .orderBy(APIQuery.BY_NAME, APIQuery.ASC)
-        ;
+            .orderBy(APIQuery.BY_NAME, APIQuery.ASC);
 
         navTo(new ProductGridFragment().setQuery(query));
         setSearchHint(getString(R.string.search_in_hint) + " " + category.name);
@@ -185,13 +188,6 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         notificationService.putExtra("authenticationToken", session.authenticationToken);
 
         startService(notificationService);
-
-        store.fetchOrder(2379, new APIBack<OrderResponse>() {
-            @Override
-            public void onSuccess(OrderResponse res) {
-                navTo(new OrderDetailFragment().setOrder(res.order));
-            }
-        });
     }
 
     @Override

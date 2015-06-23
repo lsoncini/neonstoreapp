@@ -31,7 +31,7 @@ public class NeonNotificationService extends Service implements Runnable {
 
         while (! stopped) {
             checkOrders();
-            SystemClock.sleep(10000);
+            SystemClock.sleep(5000);
         }
     }
 
@@ -80,8 +80,6 @@ public class NeonNotificationService extends Service implements Runnable {
 
             for (Order o: orders)
                 orderIdToTimehash.put(o.id, o.timehash());
-
-            new OrderStatusNotification(orders.get(0)).show(getApplicationContext());
 
         } else {
             for (Order order: orders) {
