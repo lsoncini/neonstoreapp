@@ -24,10 +24,12 @@ import api.response.OrderResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import model.Category;
+import model.Order;
 import model.Product;
 import model.Section;
 import model.Session;
 import notifications.NeonNotificationService;
+import notifications.OrderStatusNotification;
 import store.SessionListener;
 import store.Store;
 import view.ProductGrid.ProductGridListener;
@@ -68,15 +70,25 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_main);
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         navTo(new HomeFragment());
+    }
 
-//        store.login("neontest", "neontest");
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // We may be resuming after a notification was clicked:
+        int orderId = getIntent().getIntExtra(OrderStatusNotification.ORDER_ID, -1);
+
+        System.out.println("Intent with order ID " + orderId);
+
+        if (orderId != -1)
+            navTo(new OrderDetailFragment().setOrder(new Order(orderId)));
     }
 
     @Override
@@ -172,7 +184,7 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         notificationService.putExtra("username", session.account.username);
         notificationService.putExtra("authenticationToken", session.authenticationToken);
 
-//        startService(notificationService);
+        startService(notificationService);
 
         store.fetchOrder(2379, new APIBack<OrderResponse>() {
             @Override

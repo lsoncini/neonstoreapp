@@ -15,6 +15,7 @@ import model.Order;
 public class OrderStatusNotification {
 
     public static final int CLICKED = 123;
+    public static final String ORDER_ID = "notificationOrderId";
 
     private Order order;
 
@@ -25,6 +26,8 @@ public class OrderStatusNotification {
 
     public void show(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(ORDER_ID, order.id);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(
             context,

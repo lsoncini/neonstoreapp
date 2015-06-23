@@ -43,7 +43,7 @@ public class OrderItemListItem extends FrameLayout {
     public void setOrderItem(OrderItem item) {
         name.setText(item.product.name);
         price.setText("$" + item.price);
-        quantity.setText(item.quantity);
+        quantity.setText("" + item.quantity);
 
         Picasso.with(getContext())
             .load(item.product.imageUrl)
