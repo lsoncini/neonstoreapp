@@ -1,89 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
-    android:background="#ffffff">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="@string/order"
-            android:layout_marginRight="3sp"
-            style="@style/OrderTitle" />
-
-        <TextView
-            android:id="@+id/orderId"
-            android:layout_width="wrap_content"
-            android:layout_marginRight="3sp"
-            style="@style/OrderTitle" />
-
-        <TextView
-            android:id="@+id/status"
-            style="@style/OrderInfo" />
-
-    </LinearLayout>
-
-    <TextView
-        android:text="Fecha:"
-        style="@style/OrderTitle" />
-
-    <TextView
-        android:id="@+id/receivedDate"
-        style="@style/OrderInfo" />
-
-    <TextView
-        android:text="Direccion de envio: "
-        style="@style/OrderTitle"/>
-
-    <TextView
-        android:id="@+id/addressName"
-        style="@style/OrderInfo"
-        />
-
-    <TextView
-        android:id="@+id/total"
-        android:text="Total de la orden: "
-        style="@style/OrderTitle" />
-
-    <LinearLayout
-        android:id="@+id/shippedDateGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:text="Fecha de envío"
-            style="@style/OrderTitle" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-        <TextView
-            android:id="@+id/shippedDate"
-            style="@style/OrderInfo" />
+            <TextView
+                style="@style/OrderTitle"
+                android:layout_width="wrap_content"
+                android:text="@string/order" />
+
+            <TextView
+                android:id="@+id/orderId"
+                style="@style/OrderInfo"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="10dp"
+                tools:text="Numero" />
+
+            <TextView
+                style="@style/OrderTitle"
+                android:layout_width="wrap_content"
+                android:text="@string/order_status" />
+
+            <TextView
+                android:id="@+id/status"
+                style="@style/OrderInfo"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="10dp"
+                tools:text="Estado" />
+
+            <TextView
+                style="@style/OrderTitle"
+                android:layout_width="wrap_content"
+                android:text="@string/order_address" />
+
+            <TextView
+                android:id="@+id/addressName"
+                style="@style/OrderInfo"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="10dp"
+                tools:text="Dirección" />
+
+            <TextView
+                style="@style/OrderTitle"
+                android:layout_width="wrap_content"
+                android:text="@string/order_process_date" />
+
+            <TextView
+                android:id="@+id/receivedDate"
+                style="@style/OrderInfo"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="10dp"
+                tools:text="FECHA" />
+
+            <TextView
+                android:id="@+id/shippedDate"
+                style="@style/OrderInfo"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="10dp"
+                tools:text="FECHA" />
+
+            <TextView
+                style="@style/OrderTitle"
+                android:layout_width="wrap_content"
+                android:text="@string/order_total" />
+
+            <TextView
+                android:id="@+id/total"
+                style="@style/OrderInfo"
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="10dp"
+                tools:text="PRECIO" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/deliveredDate"
+                style="@style/OrderTitle"
+                android:layout_width="wrap_content"
+                android:text="Fecha enviado" />
+
+            <ListView
+                android:id="@+id/items"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/deliveredDateGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:text="Fecha de recepción"
-            style="@style/OrderTitle" />
-
-        <TextView
-            android:id="@+id/deliveredDate"
-            style="@style/OrderInfo" />
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/items"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-</LinearLayout>
+</ScrollView>
