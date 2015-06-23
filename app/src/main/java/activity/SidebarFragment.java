@@ -2,6 +2,7 @@ package activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -201,6 +202,15 @@ public class SidebarFragment extends Fragment {
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
+
+    public boolean isOpen() {
+        return mDrawerLayout.isDrawerOpen(GravityCompat.START);
+    }
+
+    public void close() {
+        mDrawerLayout.closeDrawers();
+    }
+
 //    public static class CategoryAdapter extends ArrayAdapter<Category> {
 //
 //        public CategoryAdapter(Context context) {

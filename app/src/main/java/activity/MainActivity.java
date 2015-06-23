@@ -218,4 +218,14 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         if (searchView != null)
             searchView.setQueryHint(hint);
     }
+
+    @Override
+    public void onBackPressed() {
+        System.out.println("BACK PRESSED WITH " + getSupportFragmentManager().getBackStackEntryCount());
+        if (sidebar.isOpen())
+            sidebar.close();
+        else
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1)
+            super.onBackPressed();
+    }
 }
