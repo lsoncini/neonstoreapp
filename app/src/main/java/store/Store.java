@@ -93,33 +93,33 @@ public class Store {
 
     private void searchProductsByCategory(APIQuery query, APIBack<ProductListResponse> apiBack) {
         api.getProductsByCategory(
-                query.category.id,
-                query.page,
-                query.pageSize,
-                query.sortKey,
-                query.sortOrder,
-                new Gson().toJson(query.filters),
-                apiBack
+            query.category.id,
+            query.page,
+            query.pageSize,
+            query.sortKey,
+            query.sortOrder,
+            new Gson().toJson(query.filters),
+            apiBack
         );
     }
 
     private void searchProductsBySubcategory(APIQuery query, APIBack<ProductListResponse> apiBack){
         api.getProductsBySubcategory(
-                query.subcategory.id,
-                query.page,
-                query.pageSize,
-                query.sortKey,
-                query.sortOrder,
-                new Gson().toJson(query.filters),
-                apiBack
+            query.subcategory.id,
+            query.page,
+            query.pageSize,
+            query.sortKey,
+            query.sortOrder,
+            new Gson().toJson(query.filters),
+            apiBack
         );
     }
 
     public void fetchSubcategories(APIQuery query, APIBack<SubcategoryListResponse> apiBack){
         api.getSubCategoriesByCategory(
-                query.category.id,
-                new Gson().toJson(query.filters),
-                apiBack
+            query.category.id,
+            new Gson().toJson(query.filters),
+            apiBack
         );
     }
 
@@ -142,15 +142,20 @@ public class Store {
     }
 
     public void login(String username, String password) {
+        login(username, password, new APIBack<LoginResponse>());
+    }
+
+    public void login(String username, String password, final APIBack<LoginResponse> apiBack) {
         api.login(username, password, new APIBack<LoginResponse>() {
             public void onSuccess(LoginResponse res) {
                 session = res.toSession();
                 if (listener != null) listener.onLogin(session);
-                System.out.println("LOGIN OK");
+                apiBack.onSuccess(res);
             }
 
             public void onError(APIError err) {
                 System.out.println("LOGIN ERR " + err);
+                apiBack.onError(err);
             }
         });
     }

@@ -89,4 +89,5 @@
     <string name="order_process_date">Fecha de creación:</string>
     <string name="order_total">Total:</string>
     <string name="empty_view">No existen productos con el criterio de búsqueda</string>
+    <string name="login_failed">Usuario o contraseña inválido</string>
 </resources>

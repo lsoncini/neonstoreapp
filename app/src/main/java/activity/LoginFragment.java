@@ -1,14 +1,17 @@
 package activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.neon.neonstore.R;
 
+import api.APIBack;
+import api.response.APIError;
+import api.response.LoginResponse;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -37,7 +40,19 @@ public class LoginFragment extends NeonFragment {
     public void onLoginClick() {
         store.login(
             username.getText().toString(),
-            password.getText().toString()
+            password.getText().toString(),
+
+            new APIBack<LoginResponse>() {
+                @Override
+                public void onSuccess(LoginResponse res) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                }
+
+                @Override
+                public void onError(APIError err) {
+                    Toast.makeText(getActivity(), R.string.login_failed, Toast.LENGTH_SHORT).show();
+                }
+            }
         );
     }
 }
