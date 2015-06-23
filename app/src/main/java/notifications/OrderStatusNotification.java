@@ -26,6 +26,7 @@ public class OrderStatusNotification {
 
     public void show(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
+        intent.setAction("foobar");
         intent.putExtra(ORDER_ID, order.id);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
