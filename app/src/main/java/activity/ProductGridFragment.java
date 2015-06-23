@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.neon.neonstore.R;
 
@@ -34,6 +35,8 @@ public class ProductGridFragment extends NeonFragment {
     @InjectView(R.id.subcategories_button)
     Button subcategoriesButton;
     @InjectView(R.id.order_button) Button sortButton;
+    @InjectView(R.id.emptyViewText)
+    TextView emptyTextView;
 
     // The items currently displayed in the grid were fetched using this query:
     APIQuery query;
@@ -113,6 +116,11 @@ public class ProductGridFragment extends NeonFragment {
         return this;
     }
 
+    private void emptyViewMessage(boolean show){
+        if (show) emptyTextView.setVisibility(View.VISIBLE);
+        else emptyTextView.setVisibility(View.GONE);
+    }
+
     public void updateView() {
         if (getView() == null || !queryChanged) return;
 
@@ -120,11 +128,16 @@ public class ProductGridFragment extends NeonFragment {
         queryChanged = false;
 
         showSpinner();
+        emptyViewMessage(false);
 
         store.searchProducts(query, new APIBack<ProductListResponse>() {
 
             public void onSuccess(ProductListResponse res) {
                 hideSpinner();
+                if(res.products.size()>0)
+                    emptyViewMessage(false);
+                else emptyViewMessage(true);
+
                 productGrid.setProducts(res.products);
             }
 
