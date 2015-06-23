@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.neon.neonstore.R;
 
-import activity.NeonFragment.OnFragmentAttachedListener;
 import activity.SidebarFragment.SidebarListener;
 import api.APIQuery;
 import butterknife.ButterKnife;
@@ -30,10 +29,10 @@ import notifications.NeonNotificationService;
 import notifications.OrderStatusNotification;
 import store.SessionListener;
 import store.Store;
-import view.OrderList;
+import view.OrderList.OrderListListener;
 import view.ProductGrid.ProductGridListener;
 
-public class MainActivity extends ActionBarActivity implements SidebarListener, ProductGridListener, SessionListener, OnFragmentAttachedListener {
+public class MainActivity extends ActionBarActivity implements SidebarListener, ProductGridListener, SessionListener, OrderListListener {
 
     private Store store = Store.getInstance();
 
@@ -130,13 +129,19 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     }
 
     @Override
+    public void onOrderSelected(Order order) {
+        navTo(new OrderDetailFragment().setOrder(order));
+    }
+
+    @Override
     public void onSidebarHome() {
         navTo(new HomeFragment());
     }
 
     @Override
     public void onSidebarOrders() {
-        navTo(new OrderListFragment().setOrders()); }
+        navTo(new OrderListFragment());
+    }
 
     @Override
     public void onSidebarLogIn() { navTo(new LoginFragment());}
@@ -194,16 +199,6 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     @Override
     public void onLogout() {
         stopService(new Intent(this, NeonNotificationService.class));
-    }
-
-    public void onFragmentAttached(NeonFragment sender) {
-
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-
-        if(actionBar != null){
-            actionBar.setTitle(sender.getTitle());
-        }
-
     }
 
     private void resetSearchHint() {

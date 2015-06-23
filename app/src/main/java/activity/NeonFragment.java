@@ -1,6 +1,5 @@
 package activity;
 
-import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +13,10 @@ public abstract class NeonFragment extends Fragment {
 
     private View loadingView = null;
 
-    public interface OnFragmentAttachedListener {
-        public void onFragmentAttached(NeonFragment sender);
-    }
-
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        OnFragmentAttachedListener listener = (OnFragmentAttachedListener)activity;
-        listener.onFragmentAttached(this);
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).setTitle(getTitle());
     }
 
     public void showSpinner(){
