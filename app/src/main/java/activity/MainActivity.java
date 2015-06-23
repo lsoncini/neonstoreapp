@@ -30,9 +30,10 @@ import notifications.NeonNotificationService;
 import notifications.OrderStatusNotification;
 import store.SessionListener;
 import store.Store;
+import view.OrderList;
 import view.ProductGrid.ProductGridListener;
 
-public class MainActivity extends ActionBarActivity implements SidebarListener, ProductGridListener, SessionListener, OnFragmentAttachedListener {
+public class MainActivity extends ActionBarActivity implements SidebarListener, OrderList.OrderListListener, ProductGridListener, SessionListener, OnFragmentAttachedListener {
 
     private Store store = Store.getInstance();
 
@@ -135,7 +136,7 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
 
     @Override
     public void onSidebarOrders() {
-        navTo(new OrderDetailFragment()); }
+        navTo(new OrderListFragment().setOrders()); }
 
     @Override
     public void onSidebarLogIn() { navTo(new LoginFragment());}
@@ -218,4 +219,8 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
         if (searchView != null)
             searchView.setQueryHint(hint);
     }
+
+    @Override
+    public void onOrderSelected(Order order) {
+        navTo(new OrderDetailFragment().setOrder(order));    }
 }
