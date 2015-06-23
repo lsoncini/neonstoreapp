@@ -72,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements SidebarListener, 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_home);
     }
 
     @Override
