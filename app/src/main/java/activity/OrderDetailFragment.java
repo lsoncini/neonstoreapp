@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.neon.neonstore.R;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import api.APIBack;
 import api.response.OrderResponse;
@@ -46,6 +45,7 @@ public class OrderDetailFragment extends NeonFragment {
     @InjectView(R.id.deliveredDate)      TextView  deliveredDate;
 
     @InjectView(R.id.items) ListView items;
+    OrderItemAdapter itemAdapter;
 
     public Order order;
     public ListView productList;
@@ -54,6 +54,9 @@ public class OrderDetailFragment extends NeonFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order_detail, container, false);
         ButterKnife.inject(this, view);
+
+        items.setAdapter(itemAdapter = new OrderItemAdapter(getActivity()));
+
         return view;
     }
 
@@ -65,12 +68,6 @@ public class OrderDetailFragment extends NeonFragment {
 
     public OrderDetailFragment setOrder(Order order) {
         this.order = order;
-
-        order.shippedDate = Calendar.getInstance();
-        order.shippedDate.set(1996, 5, 10);
-        order.deliveredDate = Calendar.getInstance();
-        order.deliveredDate.set(1944, 2, 10);
-
         updateView();
         return this;
     }
@@ -111,7 +108,9 @@ public class OrderDetailFragment extends NeonFragment {
             deliveredDateGroup.setVisibility(View.GONE);
 
         total.setText("$" + order.total());
-        items.setAdapter(new OrderItemAdapter(getActivity()));
+
+        itemAdapter.clear();
+        itemAdapter.addAll(order.items);
     }
 
     public static class OrderItemAdapter extends ArrayAdapter<OrderItem> {

@@ -30,6 +30,12 @@ public class Order extends Model {
 
     public List<OrderItem> items;
 
+    public Order() {}
+
+    public Order(Integer id) {
+        this.id = id;
+    }
+
     public int timehash() {
         int result = receivedDate != null ? receivedDate.hashCode() : 0;
         result = 31 * result + (processedDate != null ? processedDate.hashCode() : 0);
