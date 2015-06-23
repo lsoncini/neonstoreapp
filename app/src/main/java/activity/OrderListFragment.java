@@ -25,7 +25,6 @@ public class OrderListFragment extends NeonFragment {
     OrderList orderList;
 
     // The items currently displayed in the grid were fetched using this query:
-    APIQuery query;
     boolean ordersChanged;
 
     @Override
@@ -48,6 +47,12 @@ public class OrderListFragment extends NeonFragment {
     public void onStart() {
         super.onStart();
         updateView();
+    }
+
+    public OrderListFragment setOrders() {
+        ordersChanged = true;
+        updateView();
+        return this;
     }
 
     public void updateView() {
